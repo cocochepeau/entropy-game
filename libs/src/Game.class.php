@@ -18,10 +18,102 @@ class Game {
 		$this->board[4] = array(new Pawn($this->playerOne), new Pawn($this->playerTwo), new Pawn($this->playerTwo), new Pawn($this->playerTwo), new Pawn($this->playerTwo));
 	}
 
-	public function possibleMovement($targetedPawn){
-		//return an array of coordinated
-		
+	public function possibleMovement($targetedPawn) {
+		//return an array of coordinate
+			
+		//TODO
 
+	}
+
+	public function possibleHorizontalMovement($targetedPawn) {
+		//return an array of coordinate
+		$possibleCoord = array();
+		$x = $targetedPawn->getCoordX();
+		$y = $targetedPawn->getCoordY();
+		if($x = 0){
+			//checking on the right side
+			cpt = $x+1;
+			$cursorBox = $this->board[$cpt][$y];
+			while(($cursorBox != null) && ($cpt <= 4) {
+				array_push($cursorBox, $this->board[$cpt][$y]);
+				$cpt ++;
+			}
+		} else{
+			if ($x == 4) {
+				//checking on the left side
+				$cpt = $x-1;
+				$cursorBox = $this->board[$cpt][$y];
+				while(($cursorBox != null) && ($cpt >= 0) {
+					array_push($cursorBox, $this->board[$cpt][$y]);
+					$cpt --;
+				}
+			} else{
+				//checking on the right side
+				$cpt = $x+1;
+				$cursorBox= $this->board[$cpt][$y];
+				while(($cursorBox != null) && ($cpt <= 4) {
+					array_push($cursorBox, $this->board[$cpt][$y]);
+					$cpt ++;
+				}
+
+				//checking on the left side
+				$cpt = $x-1;
+				$cursorBox = $this->board[$cpt][$y];
+				while(($cursorBox != null) && ($cpt >= 0) {
+					array_push($cursorBox, $this->board[$cpt][$y]);
+					$cpt --;
+				}
+			}
+		}
+		return $possibleCoord;
+	}
+
+	public function possibleVerticalMovement($targetPawn){
+		//return an array of coordinate
+		$possibleCoord = array();
+		$x = $targetedPawn->getCoordX();
+		$y = $targetedPawn->getCoordY();
+		if($y = 0){
+			//checking on the right side
+			cpt = $y+1;
+			$cursorBox = $this->board[$x][$cpt];
+			while(($cursorBox != null) && ($cpt <= 4) {
+				array_push($cursorBox, $this->board[$x][$cpt]);
+				$cpt ++;
+			}
+		} else{
+			if ($y == 4) {
+				//checking on the left side
+				$cpt = $y-1;
+				$cursorBox = $this->board[$x][$cpt];
+				while(($cursorBox != null) && ($cpt >= 0) {
+					array_push($cursorBox, $this->board[$x][$cpt]);
+					$cpt --;
+				}
+			} else{
+				//checking on the right side
+				$cpt = $y+1;
+				$cursorBox= $this->board[$x][$cpt];
+				while(($cursorBox != null) && ($cpt <= 4) {
+					array_push($cursorBox, $this->board[$x][$cpt]);
+					$cpt ++;
+				}
+
+				//checking on the left side
+				$cpt = $y-1;
+				$cursorBox = $this->board[$x][$cpt];
+				while(($cursorBox != null) && ($cpt >= 0) {
+					array_push($cursorBox, $this->board[$x][$cpt]);
+					$cpt --;
+				}
+			}
+		}
+		return $possibleCoord;
+	}
+	}
+
+	public function possibleDiagonalMovement($targetedPawn){
+			//TODO
 	}
 
 	public function endGame() {
