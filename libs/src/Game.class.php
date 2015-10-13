@@ -10,14 +10,16 @@ class Game {
 
 		// initialisation of board	
 		$this->board = array();
-		$this->board[0] = array(new Pawn($playerOne), new Pawn($playerOne), new Pawn($playerOne), new Pawn($playerOne), new Pawn($playerOne));
-		$this->board[1] = array(new Pawn($playerOne), null, null, null, new Pawn($playerOne));
+		$this->board[0] = array(new Pawn($this->playerOne), new Pawn($this->playerOne), new Pawn($this->playerOne), new Pawn($this->playerOne), new Pawn($this->playerOne));
+		$this->board[1] = array(new Pawn($this->playerOne), null, null, null, new Pawn($this->playerOne));
 		$this->board[2] = array(null, null, null, null, null);
-		$this->board[3] = array(new Pawn($playerTwo), null, null, null, new Pawn($playerTwo));
-		$this->board[4] = array(new Pawn($playerOne), new Pawn($playerTwo), new Pawn($playerTwo), new Pawn($playerTwo), new Pawn($playerTwo));
+		$this->board[3] = array(new Pawn($this->playerTwo), null, null, null, new Pawn($this->playerTwo));
+		$this->board[4] = array(new Pawn($this->playerOne), new Pawn($this->playerTwo), new Pawn($this->playerTwo), new Pawn($this->playerTwo), new Pawn($this->playerTwo));
 	}
 
 	public function possibleMovement($targetedPawn){
+		//return an array of coordinated
+		
 
 	}
 

@@ -35,9 +35,21 @@ class Pawn{
 		return $this->player;
 	}
 
-	public function setCoord($newX, $newY){
+	public function setCoordX($newX){
 		$this->x = $newX;
-		$this->y = $newY;
 	}
+
+	public function getCoordX(){
+		return $this->x;
+	}
+
+	public function setCoordY($newY){
+		return $this->y;
+	}
+
+	public function getCoordY(){
+		return $this->y;
+	}
+
 
 }
