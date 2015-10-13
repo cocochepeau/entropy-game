@@ -1,4 +1,16 @@
 <?php
+// session
+session_start();
+
+// defines
+define('PROTOCOL', 'http');
+define('SERV_ROOT', $_SERVER['DOCUMENT_ROOT'].'/');
+define('SERVER_NAME', $_SERVER['SERVER_NAME']);
+define('ROOT', PROTOCOL.'://'.SERVER_NAME.'/entropy-game');
+define('URL', ROOT.$_SERVER['REQUEST_URI']);
+define('URI', $_SERVER['REQUEST_URI']);
+
+// class autoloader
 $autloader = __DIR__ . '/libs/autoloader.php';
 require_once($autloader);
 
@@ -6,15 +18,16 @@ require_once($autloader);
 // C'est la configuration par défaut de php.ini
 error_reporting(E_ALL & ~E_NOTICE);
 
+// game starter
 if(isset($_POST['start']) || isset($_POST['restart'])) {
 	$playerOneName = trim($_POST['playerOne']);
 	$playerTwoName = trim($_POST['playerTwo']);
 
 	if($playerOneName != '' && $playerTwoName != '') {
 		$game = new Game($playerOneName, $playerTwoName);
+		$_SESSION['game'] = $game;
 	}
 }
-
 
 ?>
 <!DOCTYPE html>
@@ -31,23 +44,7 @@ if(isset($_POST['start']) || isset($_POST['restart'])) {
 		{
 			?>
 			<div class="board">
-				<table>
-					<tr>
-						<td></td><td></td><td></td><td></td><td></td>
-					</tr>
-					<tr>
-						<td></td><td></td><td></td><td></td><td></td>
-					</tr>
-					<tr>
-						<td></td><td></td><td></td><td></td><td></td>
-					</tr>
-					<tr>
-						<td></td><td></td><td></td><td></td><td></td>
-					</tr>
-					<tr>
-						<td></td><td></td><td></td><td></td><td></td>
-					</tr>
-				</table>
+				<?php $game->drawBoard(); ?>
 			</div>
 			<div class="mgr">
 				<form action="index.php" method="post">
@@ -70,13 +67,6 @@ if(isset($_POST['start']) || isset($_POST['restart'])) {
 			<?php
 		}
 		?>
-		<div class="pawn yellow"></div>
-		<div class="pawn yellow">
-			<div class="cant-move">X</div>
-		</div>
-		<div class="pawn blue">
-			<div class="cant-move">X</div>
-		</div>
 		<script async src="assets/js/jquery-1.11.3.min.js"></script>
 		<script async src="assets/js/custom.js"></script>
 	</body>
