@@ -6,8 +6,8 @@ class Game
 	private $board;
 	
 	public function __construct($playerNameOne, $playerNameTwo) {
-		$this->playerOne = new Player($playerNameOne);
-		$this->playerTwo = new Player($playerNameTwo);
+		$this->playerOne = new Player(1, $playerNameOne);
+		$this->playerTwo = new Player(2, $playerNameTwo);
 
 		// initialisation of board	
 		$this->board = array();
@@ -16,6 +16,10 @@ class Game
 		$this->board[3] = array(null, null, null, null, null);
 		$this->board[4] = array(new Pawn($playerTwo), null, null, null, new Pawn($playerTwo));
 		$this->board[5] = array(new Pawn($playerOne), new Pawn($playerTwo), new Pawn($playerTwo), new Pawn($playerTwo), new Pawn($playerTwo));
+	}
+
+	public function possibleMovement($targetedPawn){
+
 	}
 
 	public function endGame() {

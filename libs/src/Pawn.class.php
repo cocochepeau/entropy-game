@@ -4,7 +4,10 @@ class Pawn{
 	private $color;		//string
 	private $player;	//player	
 	private $canMove;	//boolean
-	
+	private $x;		//baaaahh it's awfuuul! :(
+	private $y;
+
+
 // Player 1: yellow
 // Player 2: blue
 
@@ -30,7 +33,10 @@ class Pawn{
 		return $this->player;
 	}
 
-
+	public function setCoord($newX, $newY){
+		$this->x = $newX;
+		$this->y = $newY;
+	}
 
 }
 
