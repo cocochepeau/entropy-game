@@ -1,5 +1,6 @@
 <?php
 class Game {
+
 	private $playerOne;
 	private $playerTwo;
 	private $board;
