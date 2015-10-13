@@ -6,11 +6,13 @@ require_once($autloader);
 // C'est la configuration par défaut de php.ini
 error_reporting(E_ALL & ~E_NOTICE);
 
-if(isset($_POST['start']) || isset($_POST['restart']))
-{
-	$playerOne = new Player(1);
-	$playerTwo = new Player(2);
-	$game = new Game($playerOne, $playerTwo);
+if(isset($_POST['start']) || isset($_POST['restart'])) {
+	$playerOneName = trim($_POST['playerOne']);
+	$playerTwoName = trim($_POST['playerTwo']);
+
+	if($playerOneName != '' && $playerTwoName != '') {
+		$game = new Game($playerOneName, $playerTwoName);
+	}
 }
 
 
@@ -61,8 +63,8 @@ if(isset($_POST['start']) || isset($_POST['restart']))
 			<form action="index.php" method="post" accept-charset="UTF-8">
 				<label for="playerOne">Joueur 1</label>
 				<input type="text" name="playerOne" id="playerOne" required>
-				<label for="playerOne">Joueur 2</label>
-				<input type="text" name="playerTwo" id="playerOne" required>
+				<label for="playerTwo">Joueur 2</label>
+				<input type="text" name="playerTwo" id="playerTwo" required>
 				<button type="submit" name="start">C'est parti !</button>
 			</form>
 			<?php
