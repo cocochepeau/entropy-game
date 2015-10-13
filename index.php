@@ -1,5 +1,9 @@
 <?php
-if(isset($_POST['']))
+// Rapporte toutes les erreurs à part les E_NOTICE
+// C'est la configuration par défaut de php.ini
+error_reporting(E_ALL & ~E_NOTICE);
+
+if(isset($_POST['start']))
 {
 	$playerOne = new Player();
 	$playerTwo = new Player();
@@ -35,7 +39,11 @@ if(isset($_POST['']))
 			?>
 			<h1>Entropy Game</h1>
 			<form action="index.php" method="post" accept-charset="UTF-8">
-				
+				<label for="playerOne">Joueur 1</label>
+				<input type="text" name="playerOne" id="playerOne" required>
+				<label for="playerOne">Joueur 1</label>
+				<input type="text" name="playerOne" id="playerOne" required>
+				<button type="submit" name="start">C'est parti !</button>
 			</form>
 			<?php
 		}
