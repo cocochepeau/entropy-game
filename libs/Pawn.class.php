@@ -29,6 +29,9 @@ class Pawn{
 	public function getPlayer(){
 		return $this->player;
 	}
+
+
+
 }
 
 
