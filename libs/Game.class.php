@@ -12,6 +12,9 @@ class Game
 
 	public function endGame()
 	{
-		
+		if(
+			$this->playerOne->cantMove()
+			|| $this->playerTwo->cantMove()
+		)
 	}
 }
