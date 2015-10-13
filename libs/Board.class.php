@@ -13,6 +13,10 @@ class Boar
 	
 	
 
+	public function __construct(){
+	
+	
+	}
 }
 
 

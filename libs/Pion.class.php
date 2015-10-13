@@ -1,8 +1,9 @@
 <?php
 
 class Pion{
-	private $color;
-	private $player;
+	private $color;		//string
+	private $player;	//player	
+	private $canMove;	//boolean
 	
 // Player 1: yellow
 // Player 2: blue
