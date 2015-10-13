@@ -7,8 +7,8 @@
 	// array('' => '', '' => '', '' => '', '' => '', '' => '')
 // );
 
-class Board{
-	private $maxsize;	
+class Boar
+{
 	private $matBoard;
 	
 	
