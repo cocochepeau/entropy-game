@@ -1,21 +1,20 @@
 <?php
 
-class Pawn{
-	private $color;		//string
-	private $player;	//player	
-	private $canMove;	//boolean
-	
-// Player 1: yellow
-// Player 2: blue
+class Pawn {
+	private $color;		// string
+	private $player;	// player
+	private $canMove;	// boolean
 
-	public function __construct($player){
-		$this->player = player;
-		if($player->getNumPlayer() == 1){
-			$this->color = "yellow";
-		}else{
-			$this->color = "purple";
+	// Player 1: yellow
+	// Player 2: blue
+
+	public function __construct($player) {
+		$this->player = $player;
+		if($this->player->getNumPlayer() == 1) {
+			$this->color = 'yellow';
+		} else {
+			$this->color = 'purple';
 		}
-	
 	}
 	
 	public function getColor(){
@@ -26,9 +25,7 @@ class Pawn{
 		$this->color = $colorSet;
 	}
 	
-	public function getPlayer(){
+	public function getPlayer() {
 		return $this->player;
 	}
 }
-
-
