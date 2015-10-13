@@ -2,7 +2,7 @@
 class Pion {
 
 	private $color;		//string
-	private $player;	//player	
+	private $player;	//player
 	private $canMove;	//boolean
 	
 	// Player 1: yellow

@@ -1,18 +1,15 @@
 <?php
 
-class Pawn{
+class Pawn {
+
 	private $color;		//string
-	private $player;	//player	
+	private $player;	//player
 	private $canMove;	//boolean
 	private $x;		//baaaahh it's awfuuul! :(
 	private $y;
 
-
-// Player 1: yellow
-// Player 2: blue
-
-
-
+	// Player 1: yellow
+	// Player 2: blue
 
 	public function __construct($player) {
 		var_dump($player);
