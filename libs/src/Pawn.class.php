@@ -12,7 +12,6 @@ class Pawn {
 	// Player 2: blue
 
 	public function __construct($player) {
-		var_dump($player);
 		$this->player = $player;
 		if($this->player->getNumPlayer() == 1) {
 			$this->color = 'yellow';
