@@ -1,12 +1,12 @@
 <?php
+class Pion {
 
-class Pion{
 	private $color;		//string
 	private $player;	//player	
 	private $canMove;	//boolean
 	
-// Player 1: yellow
-// Player 2: blue
+	// Player 1: yellow
+	// Player 2: blue
 
 	public function __construct($player){
 		$this->player = player;
@@ -30,5 +30,3 @@ class Pion{
 		return $this->player;
 	}
 }
-
-

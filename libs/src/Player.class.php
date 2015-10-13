@@ -12,4 +12,4 @@ class Player{
 		return $this->numPlayer;
 	}
 
-?>
+}
