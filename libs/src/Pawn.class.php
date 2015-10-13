@@ -14,14 +14,14 @@ class Pawn {
 	public function __construct($player) {
 		$this->player = $player;
 		if($this->player->getNumPlayer() == 1) {
-			$this->color = 'yellow';
+			$this->setColor('yellow');
 		} else {
-			$this->color = 'purple';
+			$this->setColor('blue');
 		}
 	}
-	
-	public function getColor(){
-		return $color;
+
+	public function getColor() {
+		return $this->color;
 	}
 	
 	public function setColor($colorSet){
