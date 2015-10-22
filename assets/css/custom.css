@@ -76,26 +76,50 @@ textarea:focus {
 	margin: 0 auto;
 }
 
+.messages {
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 11px;
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	padding: 10px;
+	width: 350px;
+	height: 450px;
+	background-color: #F4F4F4;
+	border: 3px solid #888888;
+	overflow: auto;
+	
+}
+
 /* board */
 .board {
 	margin-bottom: 20px;
 }
 
 .board > table {
-	border: 3px solid black;
+	border: 3px solid #888888;
 	border-collapse: collapse;
 	background-color: #F4F4F4;
 }
 
 .board > table > tbody > tr > td {
-	border: 1px solid black;
-	padding: 4px;
+	border: 1px solid #888888;
+	padding: 12px;
 }
 
 .box {
 	position: relative;
 	width: 80px;
 	height: 80px;
+}
+
+.debug {
+	position: absolute;
+	z-index: 9999;
+	bottom: -8px;
+	right: -8px;
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 12px;
 }
 
 /* pawn */
@@ -107,6 +131,12 @@ textarea:focus {
 	-moz-border-radius: 9999px;
 	border-radius: 9999px;
 	text-align: center;
+	border: 1px solid #C3C3C3;
+-moz-box-shadow: 2px 2px 8px -5px #656565;
+-webkit-box-shadow: 2px 2px 8px -5px #656565;
+-o-box-shadow: 2px 2px 8px -5px #656565;
+box-shadow: 2px 2px 8px -5px #656565;
+filter:progid:DXImageTransform.Microsoft.Shadow(color=#656565, Direction=134, Strength=8);
 }
 
 .yellow {
@@ -114,13 +144,7 @@ textarea:focus {
 }
 
 .blue {
-	background-color: #375D81;
-}
-
-.cant-move {
-	color: red;
-	line-height: 14px;
-	font-size: 14px;
+	background-color: #99C4EC;
 }
 
 /* mgr */
@@ -135,7 +159,7 @@ textarea:focus {
 }
 
 .pn {
-	
+	text-shadow: rgba(150, 150, 150, 0.6) 0.1em 0.1em 0.2em;
 }
 
 .pn-one {
@@ -143,5 +167,5 @@ textarea:focus {
 }
 
 .pn-two {
-	color: #375D81;
+	color: #99C4EC;
 }

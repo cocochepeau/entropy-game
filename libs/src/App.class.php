@@ -22,12 +22,20 @@ class App {
 			Session::destroy();
 		}
 
-		// if a game is being played
-		$game = Session::get('game');
-		if($game) {
-			// tests
-			var_dump($game->possibleMovement());
+		// retreive game
+		if(!self::$game instanceOf Game) {
+			$game = Session::get('game');
+			if($game) {
+				self::$game = $game;
+			}
 		}
+
+		// if game is being played right now...
+		if(self::$game instanceOf Game) {
+			// tests
+			self::$game->possibleMovement($_GET['x'], $_GET['y'], $_GET['p']);
+		}
+		
 	}
 
 	public static function getGame() {

@@ -8,6 +8,9 @@
 		<link rel="stylesheet" type="text/css" href="<?= ROOT; ?>/assets/css/custom.css">
 	</head>
 	<body>
+		<div class="messages">
+			<?= Messages::get('response'); ?>
+		</div>
 		<div class="wrapper">
 			<h1 class="brand">Entropy Game</h1>
 			<?php

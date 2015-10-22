@@ -1,12 +1,8 @@
 <?php
-
 class Pawn {
 
-	private $color;		//string
-	private $player;	//player
-	private $canMove;	//boolean
-	private $x;		//baaaahh it's awfuuul! :(
-	private $y;
+	private $color;
+	private $player;
 
 	// Player 1: yellow
 	// Player 2: blue
@@ -32,19 +28,4 @@ class Pawn {
 		return $this->player;
 	}
 
-	public function setCoordX($newX){
-		$this->x = $newX;
-	}
-
-	public function getCoordX(){
-		return $this->x;
-	}
-
-	public function setCoordY($newY){
-		return $this->y;
-	}
-
-	public function getCoordY(){
-		return $this->y;
-	}
 }
