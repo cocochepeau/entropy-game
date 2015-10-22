@@ -11,19 +11,19 @@ define('ROOT', PROTOCOL.'://'.SERVER_NAME.'/entropy-game');
 define('URL', ROOT.$_SERVER['REQUEST_URI']);
 define('URI', $_SERVER['REQUEST_URI']);
 
-// class autoloader
+// autoloader
 $autloader = __DIR__ . '/libs/autoloader.php';
 require_once($autloader);
 
+// init session
 Session::init();
 
 // App
 App::init();
 $game = App::getGame();
-
 ?>
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" dir="ltr">
 	<head>
 		<meta charset="UTF-8">
 		<title>Entropy Game</title>
@@ -59,7 +59,7 @@ $game = App::getGame();
 			<?php
 		}
 		?>
-		<script async src="assets/js/jquery-1.11.3.min.js"></script>
+		<!--<script async src="assets/js/jquery-1.11.3.min.js"></script>-->
 		<script async src="assets/js/custom.js"></script>
 	</body>
 </html>

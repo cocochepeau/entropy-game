@@ -15,7 +15,7 @@ class Game {
 		$this->board[1] = array(new Pawn($this->playerOne), null, null, null, new Pawn($this->playerOne));
 		$this->board[2] = array(null, null, null, null, null);
 		$this->board[3] = array(new Pawn($this->playerTwo), null, null, null, new Pawn($this->playerTwo));
-		$this->board[4] = array(new Pawn($this->playerOne), new Pawn($this->playerTwo), new Pawn($this->playerTwo), new Pawn($this->playerTwo), new Pawn($this->playerTwo));
+		$this->board[4] = array(new Pawn($this->playerTwo), new Pawn($this->playerTwo), new Pawn($this->playerTwo), new Pawn($this->playerTwo), new Pawn($this->playerTwo));
 	}
 
 	public function possibleMovement() {
@@ -29,7 +29,7 @@ class Game {
 		// return an array of coordinate
 		$possibleCoord = array();
 		if($x = 0) {
-			//checking on the right side
+			// checking on the right side
 			$cpt = $x + 1;
 			$cursorBox = $this->board[$cpt][$y];
 			while(($cursorBox != null) && ($cpt <= 4)) {
@@ -38,7 +38,7 @@ class Game {
 			}
 		} else {
 			if($x == 4) {
-				//checking on the left side
+				// checking on the left side
 				$cpt = $x - 1;
 				$cursorBox = $this->board[$cpt][$y];
 				while(($cursorBox != null) && ($cpt >= 0)) {
@@ -46,7 +46,7 @@ class Game {
 					$cpt--;
 				}
 			} else {
-				//checking on the right side
+				// checking on the right side
 				$cpt = $x + 1;
 				$cursorBox= $this->board[$cpt][$y];
 				while(($cursorBox != null) && ($cpt <= 4)) {
@@ -54,7 +54,7 @@ class Game {
 					$cpt++;
 				}
 
-				//checking on the left side
+				// checking on the left side
 				$cpt = $x - 1;
 				$cursorBox = $this->board[$cpt][$y];
 				while(($cursorBox != null) && ($cpt >= 0)) {
@@ -120,4 +120,27 @@ class Game {
 	public function endGame() {
 		// TODO
 	}
+
+	public function drawBoard() {
+		$render = '<table><tbody>';
+
+		$y = 0;
+		foreach($this->board as $row) {
+			$x = 0;
+			$render .= '<tr>';
+			foreach($row as $col) {
+				if($col != null) {
+					$render .= '<td><div class="box"><a href="'.ROOT.'/index.php?p='.$col->getPlayer()->getNumPlayer().'&x='.$x.'&y='.$y.'" class="pawn '.$col->getColor().'"></a></div></td>';
+				} else {
+					$render .= '<td><div class="box"></div></td>';
+				}
+				$x++;
+			}
+			$render .= '</tr>';
+			$y++;
+		}
+		
+		echo $render.'</tbody></table>';
+	}
+
 }
