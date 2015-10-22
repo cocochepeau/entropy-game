@@ -23,8 +23,10 @@ class App {
 		}
 
 		// if a game is being played
-		if(Session::get('game')) {
-			// ...
+		$game = Session::get('game');
+		if($game) {
+			// tests
+			var_dump($game->possibleMovement());
 		}
 	}
 

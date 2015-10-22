@@ -62,7 +62,8 @@ class Game {
 
 	public function possibleHorizontalMovement($x, $y) {
 		// return an array of coordinate
-		// array struct array[n][0] = $CoordX   and array[n][1] = $CoordY
+		// array struct array[n][0] = $CoordX
+		// and array[n][1] = $CoordY
 		$possibleCoord = array();
 		if($x = 0) {
 			// checking on the right side
@@ -86,7 +87,7 @@ class Game {
 			} else {
 				// checking on the right side
 				$cpt = $x + 1;
-				$cursorBox= $this->board[$cpt][$y];
+				$cursorBox = $this->board[$cpt][$y];
 				while(($cursorBox != null) && ($cpt <= 4)) {
 					array_push($cursorBox, $cpt, $y);
 					$cpt++;
@@ -108,7 +109,8 @@ class Game {
 
 	public function possibleVerticalMovement($x, $y) {
 		// return an array of coordinate
-		// array struct array[n][0] = $CoordX   and array[n][1] = $CoordY
+		// array struct array[n][0] = $CoordX
+		// and array[n][1] = $CoordY
 		$possibleCoord = array();
 		if($y = 0) {
 			// checking on the right side
@@ -153,8 +155,9 @@ class Game {
 	}
 
 	public function possibleDiagonalMovement($x, $y) {
-		// array struct array[n][0] = $CoordX   and array[n][1] = $CoordY
-		$possibleCoord = new array();
+		// array struct array[n][0] = $CoordX
+		// and array[n][1] = $CoordY
+		$possibleCoord = array();
 		$cptX = $x - 1;
 		$cptY = $y + 1;
 		// checking bottom/left side
