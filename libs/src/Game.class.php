@@ -4,14 +4,19 @@ class Game {
 	private $playerOne;
 	private $playerTwo;
 	private $board;
-	private $staticPawnYellow;	//array to list all pawns which can't move, it's quick to check in this array if the game is ended.
-	private $staticPawnBlue;
-	
+
+	/*
+	 * array to list all pawns which can't move,
+	 * it's quick to check in this array if the game is ended.
+	 */
+	private $staticPawnYellow = array();
+	private $staticPawnBlue = array();
+
 	public function __construct($playerNameOne, $playerNameTwo) {
+		// init players
 		$this->playerOne = new Player(1, $playerNameOne);
 		$this->playerTwo = new Player(2, $playerNameTwo);
-		$staticPawnYellow = new array();
-		$staticPawnBlue = new array();
+
 		// initialisation of board	
 		$this->board = array();
 		$this->board[0] = array(new Pawn($this->playerOne), new Pawn($this->playerOne), new Pawn($this->playerOne), new Pawn($this->playerOne), new Pawn($this->playerOne));
@@ -29,21 +34,30 @@ class Game {
 		return $this->playerTwo;
 	}
 
+	// return an array of coordinate
 	public function possibleMovement() {
-		// return an array of coordinate
-		// TODO
-		$player = (int)$_SESSION['p'];
-		$x = (int)$_SESSION['x'];
-		$y = (int)$_SESSION['y'];
-		$possibleCoord = array_merge($this->possibleHorizontalMovement($x, $y), $this->possibleVerticalMovement($x, $y), $this->possibleDiagonalMovement($x, $y));
-		if(sizeOf($possibleCoord) == 0){
-			if($this->$board[$x][$y]->getColor() == 'yellow'){
-				array_push($this->$staticPawnYellow, $this->$board[$x][$y]);
-			}else{
-				array_push($this->$staticPawnBlue, $this->$board[$x][$y]);
+		// $player = (int)$_GET['p'];
+		$x = (int)$_GET['x'];
+		$y = (int)$_GET['y'];
+
+		$possibleMoves = array();
+		$possibleMoves[] = $this->possibleHorizontalMovement($x, $y);
+		$possibleMoves[] = $this->possibleVerticalMovement($x, $y);
+		$possibleMoves[] = $this->possibleDiagonalMovement($x, $y);
+
+		// looking for blocked pawns
+		if(
+			empty($possibleCoord[0]) // horizontal
+			&& empty($possibleCoord[1]) // vertical
+			&& empty($possibleCoord[2]) // diagonal
+		) {
+			if($this->board[$x][$y]->getColor() == 'yellow') {
+				array_push($this->staticPawnYellow, $this->board[$x][$y]);
+			} else {
+				array_push($this->staticPawnBlue, $this->board[$x][$y]);
 			}
 		}
-		return $possibleCoord;
+		return $possibleMoves;
 	}
 
 	public function possibleHorizontalMovement($x, $y) {
@@ -139,7 +153,6 @@ class Game {
 	}
 
 	public function possibleDiagonalMovement($x, $y) {
-		// TODO
 		// array struct array[n][0] = $CoordX   and array[n][1] = $CoordY
 		$possibleCoord = new array();
 		$cptX = $x - 1;
@@ -149,8 +162,8 @@ class Game {
 			$cursorBox = $this->board[$cptX][$cptY];
 			while((($cptX >= 0) && ($cptY <= 4)) && $cursorBox != null){
 				array_push($possibleCoord, $cptX, $cptY);
-				$cptX --;
-				$cptY ++;
+				$cptX--;
+				$cptY++;
 				$cursorBox = $this->board[$cptX][$cptY];
 			}
 		}
@@ -161,8 +174,8 @@ class Game {
 			$cursorBox = $this->board[$cptX][$cptY];
 			while((($cptX <= 4) && ($cptY >= 0)) && $cursorBox != null){
 				array_push($possibleCoord, $cptX, $cptY);
-				$cptX ++;
-				$cptY --;
+				$cptX++;
+				$cptY--;
 				$cursorBox = $this->board[$cptX][$cptY];
 			}
 		}
@@ -173,8 +186,8 @@ class Game {
 			$cursorBox = $this->board[$cptX][$cptY];
 			while((($cptX <= 4) && ($cptY <= 4)) && $cursorBox != null){
 				array_push($possibleCoord, $cptX, $cptY);
-				$cptX ++;
-				$cptY ++;
+				$cptX++;
+				$cptY++;
 				$cursorBox = $this->board[$cptX][$cptY];
 			}
 		}
@@ -185,8 +198,8 @@ class Game {
 			$cursorBox = $this->board[$cptX][$cptY];
 			while((($cptX >= 0) && ($cptY >= 0)) && $cursorBox != null){
 				array_push($possibleCoord, $cptX, $cptY);
-				$cptX --;
-				$cptY --;
+				$cptX--;
+				$cptY--;
 				$cursorBox = $this->board[$cptX][$cptY];
 			}
 		}
@@ -195,8 +208,7 @@ class Game {
 	}
 
 	public function endGame() {
-		// TODO
-		return ((sizeOf($this->$staticPawnYelow) == 5) || (sizeOf($this->$staticPawnBlue) == 5) );
+		return ((count($this->$staticPawnYelow) == 5) || (count($this->$staticPawnBlue) == 5));
 	}
 
 	public function drawBoard() {
