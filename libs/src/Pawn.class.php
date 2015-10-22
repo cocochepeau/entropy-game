@@ -47,6 +47,4 @@ class Pawn {
 	public function getCoordY(){
 		return $this->y;
 	}
-
-
 }

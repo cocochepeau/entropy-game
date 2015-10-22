@@ -1,6 +1,6 @@
 <?php
-class Cookie
-{
+class Cookie {
+
 	const Session = 0;
 	const OneHour = 3600;
 	const OneDay = 86400;
@@ -14,8 +14,7 @@ class Cookie
 	* @param string $name
 	* @return bool
 	*/
-	public static function exists($name)
-	{
+	public static function exists($name) {
 		return isset($_COOKIE[$name]);
 	}
 
@@ -26,8 +25,7 @@ class Cookie
 	* @param string $name
 	* @return bool
 	*/
-	public static function isEmpty($name)
-	{
+	public static function isEmpty($name) {
 		return empty($_COOKIE[$name]);
 	}
 
@@ -41,14 +39,11 @@ class Cookie
 	* @param string $domain
 	* @return bool
 	*/
-	public static function set($name, $value = '', $expiry = self::Session, $path = '/', $domain = '', $secure = false, $httpOnly = false)
-	{
-		if(!headers_sent())
-		{
+	public static function set($name, $value = '', $expiry = self::Session, $path = '/', $domain = '', $secure = false, $httpOnly = false) {
+		if(!headers_sent()) {
 			if(is_numeric($expiry) && $expiry > 0) $expiry = time() + $expiry;
 
-			if(@setcookie($name, $value, $expiry, $path, $domain, $secure, $httpOnly))
-			{
+			if(@setcookie($name, $value, $expiry, $path, $domain, $secure, $httpOnly)) {
 				$_COOKIE[$name] = $value;
 				return true;
 			}
@@ -62,8 +57,7 @@ class Cookie
 	* @param string $name
 	* @return mixed
 	*/
-	public static function get($name)
-	{
+	public static function get($name) {
 		if(isset($_COOKIE[$name])) return $_COOKIE[$name];
 		return false;
 	}
@@ -77,10 +71,8 @@ class Cookie
 	* @param bool $removeFromGlobal set to true to remove this cookie from $_REQUEST.
 	* @return bool
 	*/
-	public static function delete($name, $path = '/', $domain = '', $removeFromGlobal = true)
-	{
-		if(!headers_sent())
-		{
+	public static function delete($name, $path = '/', $domain = '', $removeFromGlobal = true) {
+		if(!headers_sent()) {
 			$retVal =@ setcookie($name, '', time() - 3600, $path, $domain);
 
 			if($removeFromGlobal) unset($_COOKIE[$name]);
@@ -89,4 +81,5 @@ class Cookie
 		}
 		return false;
 	}
+
 }

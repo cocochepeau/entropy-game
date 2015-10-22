@@ -1,6 +1,6 @@
 <?php
-class Player{
-	
+class Player {
+
 	private $numPlayer;		
 	private $namePlayer;
 
@@ -8,8 +8,7 @@ class Player{
 		$this->numPlayer = $num;
 		$this->namePlayer = $name;
 	}
-	
-	
+
 	public function getNumPlayer() {
 		return $this->numPlayer;
 	}

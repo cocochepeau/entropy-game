@@ -1,6 +1,7 @@
 <?php
-// session
-session_start();
+// Rapporte toutes les erreurs à part les E_NOTICE
+// C'est la configuration par défaut de php.ini
+error_reporting(E_ALL & ~E_NOTICE);
 
 // defines
 define('PROTOCOL', 'http');
@@ -14,20 +15,11 @@ define('URI', $_SERVER['REQUEST_URI']);
 $autloader = __DIR__ . '/libs/autoloader.php';
 require_once($autloader);
 
-// Rapporte toutes les erreurs à part les E_NOTICE
-// C'est la configuration par défaut de php.ini
-error_reporting(E_ALL & ~E_NOTICE);
+Session::init();
 
-// game starter
-if(isset($_POST['start']) || isset($_POST['restart'])) {
-	$playerOneName = trim($_POST['playerOne']);
-	$playerTwoName = trim($_POST['playerTwo']);
-
-	if($playerOneName != '' && $playerTwoName != '') {
-		$game = new Game($playerOneName, $playerTwoName);
-		$_SESSION['game'] = $game;
-	}
-}
+// App
+App::init();
+$game = App::getGame();
 
 ?>
 <!DOCTYPE html>
