@@ -17,7 +17,7 @@ class Game {
 		$this->playerOne = new Player(1, $playerNameOne);
 		$this->playerTwo = new Player(2, $playerNameTwo);
 
-		// initialisation of board	
+		// init board	
 		$this->board = array();
 		$this->board[0] = array(new Pawn($this->playerOne), new Pawn($this->playerOne), new Pawn($this->playerOne), new Pawn($this->playerOne), new Pawn($this->playerOne));
 		$this->board[1] = array(new Pawn($this->playerOne), null, null, null, new Pawn($this->playerOne));
