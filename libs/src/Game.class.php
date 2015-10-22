@@ -18,9 +18,18 @@ class Game {
 		$this->board[4] = array(new Pawn($this->playerTwo), new Pawn($this->playerTwo), new Pawn($this->playerTwo), new Pawn($this->playerTwo), new Pawn($this->playerTwo));
 	}
 
+	public function getPlayerOne() {
+		return $this->playerOne;
+	}
+
+	public function getPlayerTwo() {
+		return $this->playerTwo;
+	}
+
 	public function possibleMovement() {
 		// return an array of coordinate
 		// TODO
+		$player = (int)$_GET['p'];
 		$x = (int)$_GET['x'];
 		$y = (int)$_GET['y'];
 	}
@@ -109,7 +118,7 @@ class Game {
 		return $possibleCoord;
 	}
 
-	public function possibleDiagonalMovement($targetedPawn){
+	public function possibleDiagonalMovement($targetedPawn) {
 		// TODO
 		// checking bottom/left side
 		// checking top/right side
