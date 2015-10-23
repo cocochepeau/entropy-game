@@ -36,6 +36,10 @@ class Game {
 		return $this->playerTwo;
 	}
 
+	public function deplacer($x, $y, $p) {
+		// TODO
+	}
+
 	// return an array of coordinate
 	public function possibleMovement($x, $y, $p) {
 		// sanitizing
