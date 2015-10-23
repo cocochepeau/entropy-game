@@ -4,7 +4,7 @@ class Game {
 	private $playerOne;
 	private $playerTwo;
 	private $board;
-	private $whichTurn = 1;
+	private $whichTurn = 1; // 1 = playerOne
 
 	/*
 	 * array to list all pawns which can't move,
@@ -69,8 +69,7 @@ class Game {
 					// player can move pawn
 				}
 			} else {
-				Messages::add('response', "That's NOT your turn morron !" . PHP_EOL);
-				Messages::add('response', "That's NOT your turn morron !" . PHP_EOL);
+				Messages::add('response', "That's NOT your turn dumb !" . PHP_EOL);
 			}
 			return $moves;
 		}
