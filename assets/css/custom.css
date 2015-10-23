@@ -76,7 +76,7 @@ textarea:focus {
 	margin: 0 auto;
 }
 
-.messages {
+.debug {
 	font-family: Verdana, Arial, sans-serif;
 	font-size: 11px;
 	position: absolute;
@@ -88,7 +88,21 @@ textarea:focus {
 	background-color: #F4F4F4;
 	border: 3px solid #888888;
 	overflow: auto;
-	
+	display: none;
+	z-index: 999;
+}
+
+.toggle-debug {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 11px;
+}
+
+.debug > .toggle-debug {
+	right: 10px;
+	bottom: 10px;
 }
 
 /* board */
@@ -113,9 +127,9 @@ textarea:focus {
 	height: 80px;
 }
 
-.debug {
+.coordinates {
 	position: absolute;
-	z-index: 9999;
+	z-index: 99;
 	bottom: -8px;
 	right: -8px;
 	font-family: Verdana, Arial, sans-serif;
@@ -132,11 +146,12 @@ textarea:focus {
 	border-radius: 9999px;
 	text-align: center;
 	border: 1px solid #C3C3C3;
--moz-box-shadow: 2px 2px 8px -5px #656565;
--webkit-box-shadow: 2px 2px 8px -5px #656565;
--o-box-shadow: 2px 2px 8px -5px #656565;
-box-shadow: 2px 2px 8px -5px #656565;
-filter:progid:DXImageTransform.Microsoft.Shadow(color=#656565, Direction=134, Strength=8);
+	z-index: 99;
+	-moz-box-shadow: 2px 2px 8px -5px #656565;
+	-webkit-box-shadow: 2px 2px 8px -5px #656565;
+	-o-box-shadow: 2px 2px 8px -5px #656565;
+	box-shadow: 2px 2px 8px -5px #656565;
+	filter:progid:DXImageTransform.Microsoft.Shadow(color=#656565, Direction=134, Strength=8);
 }
 
 .yellow {

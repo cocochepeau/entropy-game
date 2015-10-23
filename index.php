@@ -8,8 +8,10 @@
 		<link rel="stylesheet" type="text/css" href="<?= ROOT; ?>/assets/css/custom.css">
 	</head>
 	<body>
-		<div class="messages">
-			<?= Messages::get('response'); ?>
+		<a href="#toggleDebug"class="toggle-debug">Toggle debug</a>
+		<div class="debug">
+			<?php Messages::render('response'); ?>
+			<a href="#toggleDebug"class="toggle-debug" title="Click to hide"></a>
 		</div>
 		<div class="wrapper">
 			<h1 class="brand">Entropy Game</h1>
@@ -51,7 +53,8 @@
 			}
 			?>
 		</div>
-		<!--<script async src="assets/js/jquery-1.11.3.min.js"></script>-->
-		<script async src="assets/js/custom.js"></script>
+		<script src="<?= ROOT; ?>/assets/js/jquery-1.11.3.min.js"></script>
+		<script async src="<?= ROOT; ?>/assets/js/custom.js"></script>
+		<script src="<?= ROOT; ?>/assets/js/jquery.cookie-1.4.1.min.js"></script>
 	</body>
 </html>

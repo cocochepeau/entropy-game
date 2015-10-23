@@ -264,7 +264,7 @@ class Game {
 			$x = 0;
 			$render .= '<tr>';
 			foreach($row as $col) {
-				$debug = '<span class="debug">'.$x.','.$y.'</span>';
+				$debug = '<span class="coordinates">'.$x.','.$y.'</span>';
 				if($col != null) {
 					$render .= '<td><div class="box"><a href="'.ROOT.'/index.php?p='.$col->getPlayer()->getNumPlayer().'&x='.$x.'&y='.$y.'" class="pawn '.$col->getColor().'"></a>'.$debug.'</div></td>';
 				} else {

@@ -22,4 +22,12 @@ class Messages {
 		}
 		return false;
 	}
+
+	public static function render($key) {
+		$value = self::get($key);
+		if($value) {
+			echo str_replace(array("\r\n", "\n", "\r"), '<br>', $value);
+		}
+		echo '';
+	}
 }
