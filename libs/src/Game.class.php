@@ -5,7 +5,10 @@ class Game {
 	private $playerTwo;
 	private $board;
 	private $whichTurn = 1; // 1 = playerOne
-
+	private $coordPawnToMoveX;  //tmp coordinate of the pawn which have to move.
+	private $coordPawnToMoveY;
+	private $allowedMovement;
+	
 	/*
 	 * array to list all pawns which can't move,
 	 * it's quick to check in this array if the game is ended.
@@ -17,7 +20,6 @@ class Game {
 		// init players
 		$this->playerOne = new Player(1, $playerNameOne);
 		$this->playerTwo = new Player(2, $playerNameTwo);
-
 		// init board	
 		$this->board = array();
 		$this->board[0] = array(new Pawn($this->playerOne), new Pawn($this->playerOne), new Pawn($this->playerOne), new Pawn($this->playerOne), new Pawn($this->playerOne));
@@ -36,8 +38,19 @@ class Game {
 		return $this->playerTwo;
 	}
 
-	public function deplacer($x, $y, $p) {
+	public function deplacer($x, $y, $p) { //coordinate of destination
 		// TODO
+		//verif if the movement is possible for security
+		$find = false;
+		$cpt = 0;
+		while(($find == false) && ($cpt <= (sizeof($this->allowedMovement) - 1))){
+			if(($this->allowedMovement[$cpt]['x'] == $x) && ($this->allowedMovement[$cpt]['y'] == $y)){
+				$find = true;
+			} else{
+				$cpt++;
+			}
+		}
+		
 	}
 
 	// return an array of coordinate
@@ -75,7 +88,7 @@ class Game {
 			} else {
 				Messages::add('response', "That's NOT your turn dumb !" . PHP_EOL);
 			}
-			return $moves;
+			$this->allowedMovement = $moves;
 		}
 		return false;
 	}
