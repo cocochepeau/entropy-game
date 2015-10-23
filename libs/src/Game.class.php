@@ -21,8 +21,7 @@ class Game {
 		// init board	
 		$this->board = array();
 		$this->board[0] = array(new Pawn($this->playerOne), new Pawn($this->playerOne), new Pawn($this->playerOne), new Pawn($this->playerOne), new Pawn($this->playerOne));
-		// $this->board[1] = array(new Pawn($this->playerOne), null, null, null, new Pawn($this->playerOne));
-		$this->board[1] = array(new Pawn($this->playerOne), null, new Pawn($this->playerOne), null, new Pawn($this->playerOne));
+		$this->board[1] = array(new Pawn($this->playerOne), null, null, null, new Pawn($this->playerOne));
 		$this->board[2] = array(null, null, null, null, null);
 		$this->board[3] = array(new Pawn($this->playerTwo), null, null, null, new Pawn($this->playerTwo));
 		$this->board[4] = array(new Pawn($this->playerTwo), new Pawn($this->playerTwo), new Pawn($this->playerTwo), new Pawn($this->playerTwo), new Pawn($this->playerTwo));
@@ -51,14 +50,26 @@ class Game {
 			$moves = array();
 			if($this->whichTurn == $p) {
 				$moves['horizontal'] = $this->possibleHorizontalMovement($x, $y);
+				// debug
+				Messages::add('response', 'horizontal moves = {');
+				foreach($moves['horizontal'] as $key => $value) {
+					if($key >= count($moves['horizontal']) - 1) Messages::add('response', '('.$value['x'].','.$value['y'].')');
+					else Messages::add('response', '('.$value['x'].','.$value['y'].'), ');
+				}
+				Messages::add('response', '}' . PHP_EOL);
+
 				$moves['vertical'] = $this->possibleVerticalMovement($x, $y);
+				// debug
 				Messages::add('response', 'vertical moves = {');
 				foreach($moves['vertical'] as $key => $value) {
 					if($key >= count($moves['vertical']) - 1) Messages::add('response', '('.$value['x'].','.$value['y'].')');
 					else Messages::add('response', '('.$value['x'].','.$value['y'].'), ');
 				}
-				Messages::add('response', '}');
+				Messages::add('response', '}' . PHP_EOL);
+
 				$moves['diagonal'] = $this->possibleDiagonalMovement($x, $y);
+
+				
 
 				// looking for blocked pawn
 				if(empty($moves['horizontal']) && empty($moves['vertical'])	&& empty($moves['diagonal'])) {
