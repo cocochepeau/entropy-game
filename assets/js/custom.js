@@ -10,11 +10,9 @@ $(function() {
 		e.preventDefault();
 
 		if($.cookie('debug') == 0) {
-			// hide
 			$.cookie('debug', 1);
 			$('.debug').hide();
 		} else {
-			// show
 			$.cookie('debug', 0);
 			$('.debug').show();
 		}
