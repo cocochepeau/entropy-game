@@ -10,15 +10,14 @@ class Game {
 	 * array to list all pawns which can't move,
 	 * it's quick to check in this array if the game is ended.
 	 */
-	private $staticPawnYellow = array();
-	private $staticPawnBlue = array();
+	private $staticPawns = array();
 
 	public function __construct($playerNameOne, $playerNameTwo) {
 		// init players
 		$this->playerOne = new Player(1, $playerNameOne);
 		$this->playerTwo = new Player(2, $playerNameTwo);
 
-		// init board	
+		// init board
 		$this->board = array();
 		$this->board[0] = array(new Pawn($this->playerOne), new Pawn($this->playerOne), new Pawn($this->playerOne), new Pawn($this->playerOne), new Pawn($this->playerOne));
 		$this->board[1] = array(new Pawn($this->playerOne), null, null, null, new Pawn($this->playerOne));
@@ -68,23 +67,18 @@ class Game {
 				Messages::add('response', '}' . PHP_EOL);
 
 				$moves['diagonal'] = $this->possibleDiagonalMovement($x, $y);
-
-				
+				// debug
 
 				// looking for blocked pawn
 				if(empty($moves['horizontal']) && empty($moves['vertical'])	&& empty($moves['diagonal'])) {
 					if($this->board[$x][$y] instanceOf Pawn) {
-						if($this->board[$x][$y]->getColor() == 'yellow') {
-							array_push($this->staticPawnYellow, $this->board[$x][$y]);
-						} else {
-							array_push($this->staticPawnBlue, $this->board[$x][$y]);
-						}	
+						array_push($this->staticPawns, array('x' => $x, 'y' => $y));
 					}
 				} else {
 					// player can move pawn
 				}
 			} else {
-				Messages::add('response', "That's NOT your turn dumb !" . PHP_EOL);
+				Messages::add('response', "That's NOT your turn, dumb !" . PHP_EOL);
 			}
 			return $moves;
 		}
