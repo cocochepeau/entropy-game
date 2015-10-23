@@ -13,18 +13,16 @@ class Game {
 	 * array to list all pawns which can't move,
 	 * it's quick to check in this array if the game is ended.
 	 */
-	private $staticPawnYellow = array();
-	private $staticPawnBlue = array();
+	private $staticPawns = array();
 
 	public function __construct($playerNameOne, $playerNameTwo) {
 		// init players
 		$this->playerOne = new Player(1, $playerNameOne);
 		$this->playerTwo = new Player(2, $playerNameTwo);
-		// init board	
+
 		$this->board = array();
 		$this->board[0] = array(new Pawn($this->playerOne), new Pawn($this->playerOne), new Pawn($this->playerOne), new Pawn($this->playerOne), new Pawn($this->playerOne));
-		// $this->board[1] = array(new Pawn($this->playerOne), null, null, null, new Pawn($this->playerOne));
-		$this->board[1] = array(new Pawn($this->playerOne), null, new Pawn($this->playerOne), null, new Pawn($this->playerOne));
+		$this->board[1] = array(new Pawn($this->playerOne), null, null, null, new Pawn($this->playerOne));
 		$this->board[2] = array(null, null, null, null, null);
 		$this->board[3] = array(new Pawn($this->playerTwo), null, null, null, new Pawn($this->playerTwo));
 		$this->board[4] = array(new Pawn($this->playerTwo), new Pawn($this->playerTwo), new Pawn($this->playerTwo), new Pawn($this->playerTwo), new Pawn($this->playerTwo));
@@ -64,29 +62,36 @@ class Game {
 			$moves = array();
 			if($this->whichTurn == $p) {
 				$moves['horizontal'] = $this->possibleHorizontalMovement($x, $y);
+				// debug
+				Messages::add('response', 'horizontal moves = {');
+				foreach($moves['horizontal'] as $key => $value) {
+					if($key >= count($moves['horizontal']) - 1) Messages::add('response', '('.$value['x'].','.$value['y'].')');
+					else Messages::add('response', '('.$value['x'].','.$value['y'].'), ');
+				}
+				Messages::add('response', '}' . PHP_EOL);
+
 				$moves['vertical'] = $this->possibleVerticalMovement($x, $y);
+				// debug
 				Messages::add('response', 'vertical moves = {');
 				foreach($moves['vertical'] as $key => $value) {
 					if($key >= count($moves['vertical']) - 1) Messages::add('response', '('.$value['x'].','.$value['y'].')');
 					else Messages::add('response', '('.$value['x'].','.$value['y'].'), ');
 				}
-				Messages::add('response', '}');
+				Messages::add('response', '}' . PHP_EOL);
+
 				$moves['diagonal'] = $this->possibleDiagonalMovement($x, $y);
+				// debug
 
 				// looking for blocked pawn
 				if(empty($moves['horizontal']) && empty($moves['vertical'])	&& empty($moves['diagonal'])) {
 					if($this->board[$x][$y] instanceOf Pawn) {
-						if($this->board[$x][$y]->getColor() == 'yellow') {
-							array_push($this->staticPawnYellow, $this->board[$x][$y]);
-						} else {
-							array_push($this->staticPawnBlue, $this->board[$x][$y]);
-						}	
+						array_push($this->staticPawns, array('x' => $x, 'y' => $y));
 					}
 				} else {
 					// player can move pawn
 				}
 			} else {
-				Messages::add('response', "That's NOT your turn dumb !" . PHP_EOL);
+				Messages::add('response', "That's NOT your turn, dumb !" . PHP_EOL);
 			}
 			$this->allowedMovement = $moves;
 		}

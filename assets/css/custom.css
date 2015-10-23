@@ -34,17 +34,14 @@ textarea {
 	outline: none;
 	padding: 4px 10px;
 	border: 1px solid #DDDDDD;
-	-webkit-border-radius: 50px;
-	-moz-border-radius: 50px;
-	border-radius: 50px;
 	font-family: Verdana, Arial, sans-serif;
 }
- 
+
 input[type=text]:focus,
 input[type=email]:focus,
 input[type=password]:focus,
 textarea:focus {
-	box-shadow: 0 0 5px #333333;
+	box-shadow: 0 0 2px #333333;
 }
 
 .form-control {
