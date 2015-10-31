@@ -98,6 +98,7 @@ class Game {
 		return false;
 	}
 
+	//this method was modified in order to give only one coordinate
 	public function possibleHorizontalMovement($x, $y) {
 		$allowed = array();
 		if($x == 0) {
@@ -105,25 +106,25 @@ class Game {
 			$x++;
 			while($x <= 4) {
 				$target = $this->board[$y][$x];
-				if($target == null) {
-					$allowed[] = array('x' => $x, 'y' => $y);
-				} else {
+				if($target != null) {
 					break;
+				} else {
+					$x++;
 				}
-				$x++;
 			}
+			$allowed[] = array('x' => $x, 'y' => $y);
 		} elseif($x == 4) {
 			// 4- : checking on the left side
 			$x--;
 			while($x >= 0) {
 				$target = $this->board[$y][$x];
-				if($target == null) {
-					$allowed[] = array('x' => $x, 'y' => $y);
-				} else {
+				if($target 	!= null) {
 					break;
+				} else {
+					$x--;
 				}
-				$x--;
 			}
+				$allowed[] = array('x' => $x, 'y' => $y);
 		} elseif($x > 0 || $x < 4) {
 			// 0 < x < 4
 			$right = $x + 1;
@@ -132,28 +133,28 @@ class Game {
 			// checking on the right side
 			while($right <= 4) {
 				$target = $this->board[$y][$right];
-				if($target == null) {
-					$allowed[] = array('x' => $right, 'y' => $y);
-				} else {
+				if($target != null) {
 					break;
+				} else {
+					$right++;
 				}
-				$right++;
 			}
-
+				$allowed[] = array('x' => $right, 'y' => $y);
 			// checking on the left side
 			while($left >= 0) {
 				$target = $this->board[$y][$left];
-				if($target == null) {
-					$allowed[] = array('x' => $left, 'y' => $y);
-				} else {
+				if($target != null) {
 					break;
+				} else {
+					$left--;
 				}
-				$left--;
 			}
+			$allowed[] = array('x' => $left, 'y' => $y);
 		}
 		return $allowed;
 	}
 
+	//this method was modified in order to give only one coordinate
 	public function possibleVerticalMovement($x, $y) {
 		$allowed = array();
 		if($y == 0) {
@@ -161,25 +162,28 @@ class Game {
 			$y++;
 			while($y <= 4) {
 				$target = $this->board[$y][$x];
-				if($target == null) {
-					$allowed[] = array('x' => $x, 'y' => $y);
-				} else {
+				if($target != null) {
+					
 					break;
+				} else {
+					$y++;
 				}
-				$y++;
+				
 			}
+			$allowed[] = array('x' => $x, 'y' => $y);
 		} elseif($y == 4) {
 			// 4- : checking on the bottom side
 			$y--;
 			while($y >= 0) {
 				$target = $this->board[$y][$x];
-				if($target == null) {
-					$allowed[] = array('x' => $x, 'y' => $y);
-				} else {
+				if($target != null) {
 					break;
+				} else {
+					$y--;
 				}
-				$y--;
+				
 			}
+			$allowed[] = array('x' => $x, 'y' => $y);
 		} elseif($y > 0 || $y < 4) {
 			// 0 < y < 4
 			$top = $y + 1;
@@ -188,28 +192,31 @@ class Game {
 			// checking on the top side
 			while($top <= 4) {
 				$target = $this->board[$top][$x];
-				if($target == null) {
-					$allowed[] = array('x' => $x, 'y' => $top);
-				} else {
+				if($target != null) {
 					break;
+				} else {
+					$top++;
 				}
-				$top++;
+				
 			}
-
+			$allowed[] = array('x' => $x, 'y' => $top);
 			// checking on the bottom side
 			while($bottom >= 0) {
 				$target = $this->board[$bottom][$x];
-				if($target == null) {
-					$allowed[] = array('x' => $x, 'y' => $bottom);
-				} else {
+				if($target != null) {
 					break;
+				} else {
+					$bottom--;
 				}
-				$bottom--;
+				
 			}
+			$allowed[] = array('x' => $x, 'y' => $bottom);
 		}
 		return $allowed;
 	}
 
+
+	//TODO: Change this method to give only one coordinate.
 	public function possibleDiagonalMovement($x, $y) {
 		// checking bottom/left side
 		// checking top/right side
@@ -224,11 +231,12 @@ class Game {
 			$cursorBox = $this->board[$cptX][$cptY];
 			while((($cptX >= 0) && ($cptY <= 4)) && $cursorBox != null) {
 				// array_push($possibleCoord, $cptX, $cptY);
-				array_push($possibleCoord, array($cptX, $cptY));
+				
 				$cptX--;
 				$cptY++;
 				$cursorBox = $this->board[$cptX][$cptY];
 			}
+			array_push($possibleCoord, array($cptX, $cptY));
 		}
 		// checking top/right side
 		$cptX = $x + 1;
@@ -237,11 +245,12 @@ class Game {
 			$cursorBox = $this->board[$cptX][$cptY];
 			while((($cptX <= 4) && ($cptY >= 0)) && $cursorBox != null) {
 				// array_push($possibleCoord, $cptX, $cptY);
-				array_push($possibleCoord, array($cptX, $cptY));
+			
 				$cptX++;
 				$cptY--;
 				$cursorBox = $this->board[$cptX][$cptY];
 			}
+				array_push($possibleCoord, array($cptX, $cptY));
 		}
 		// checking bottom/right side
 		$cptX = $x + 1;
@@ -250,11 +259,12 @@ class Game {
 			$cursorBox = $this->board[$cptX][$cptY];
 			while((($cptX <= 4) && ($cptY <= 4)) && $cursorBox != null) {
 				// array_push($possibleCoord, $cptX, $cptY);
-				array_push($possibleCoord, array($cptX, $cptY));
+				
 				$cptX++;
 				$cptY++;
 				$cursorBox = $this->board[$cptX][$cptY];
 			}
+			array_push($possibleCoord, array($cptX, $cptY));
 		}
 		// checking top/left side
 		$cptX = $x - 1;
@@ -263,11 +273,12 @@ class Game {
 			$cursorBox = $this->board[$cptX][$cptY];
 			while((($cptX >= 0) && ($cptY >= 0)) && $cursorBox != null) {
 				// array_push($possibleCoord, $cptX, $cptY);
-				array_push($possibleCoord, array($cptX, $cptY));
+			
 				$cptX--;
 				$cptY--;
 				$cursorBox = $this->board[$cptX][$cptY];
 			}
+				array_push($possibleCoord, array($cptX, $cptY));
 		}
 
 		return $possibleCoord;
