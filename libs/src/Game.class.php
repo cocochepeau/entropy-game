@@ -108,7 +108,7 @@ class Game {
 
 	// this method was modified in order to give only one coordinate
 	public function possibleHorizontalMovement($x, $y) {
-		$tmpY = $y;
+		$tmpX = $X;
 		$allowed = array();
 		if($x == 0) {
 			// 0+ : checking on the right side
