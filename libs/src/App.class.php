@@ -25,7 +25,6 @@ class App {
 			// tests
 			$this->game->possibleMovement($_GET['x'], $_GET['y'], $_GET['p']);
 		}
-		
 	}
 
 	public function startGame() {
@@ -52,11 +51,10 @@ class App {
 	}
 
 	public function retrieveGame() {
-		if(!$this->game instanceOf Game) {
-			$game = Session::get('game');
-			if($game) {
-				$this->game = $game;
-			}
+		$game = Session::get('game');
+		if($game) {
+			$this->game = $game;
+			return true;
 		}
 		return false;
 	}
