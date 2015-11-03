@@ -284,74 +284,58 @@ class Game {
 		return $possibleCoord;
 	}
 
-	public function isAlone($x, $y){
-		if($x == 4){
-			if($y == 4){
-				if((($this->board[$x][$y-1]== null) && ($this->board[$x-1][$y]== null)) && ($this->board[$x-1][$y-1]== null)){
+	public function isAlone($x, $y) {
+		if($x == 4) {
+			if($y == 4) {
+				if((($this->board[$x][$y-1]== null) && ($this->board[$x-1][$y]== null)) && ($this->board[$x-1][$y-1]== null)) {
 					return true;
-				}else{
-					return false;
 				}
 			} elseif ($y == 0) {
-				if((($this->board[$x][$y+1]== null) && ($this->board[$x-1][$y]== null)) && ($this->board[$x-1][$y+1]== null)){
+				if((($this->board[$x][$y+1]== null) && ($this->board[$x-1][$y]== null)) && ($this->board[$x-1][$y+1]== null)) {
 					return true;
-				}else{
-					return false;
 				}
-			} else{
+			} else {
 				// to finish
 				if(((($this->board[$x][$y+1]== null) && 
 					($this->board[$x-1][$y]== null)) && 
 					($this->board[$x-1][$y+1]== null)) && 
-					($this->board[$x-1][$y-1] == null)){
+					($this->board[$x-1][$y-1] == null)) {
 					return true;
-				}else{
-					return false;
 				}
 			}
 		} elseif ($x == 0) {
-			if($y == 4){
-				if((($this->board[$x][$y-1]== null) && ($this->board[$x+1][$y]== null)) && ($this->board[$x+1][$y-1]== null)){
+			if($y == 4) {
+				if((($this->board[$x][$y-1]== null) && ($this->board[$x+1][$y]== null)) && ($this->board[$x+1][$y-1]== null)) {
 					return true;
-				}else{
-					return false;
 				}
 			} elseif ($y == 0) {
-				if((($this->board[$x][$y+1]== null) && ($this->board[$x+1][$y]== null)) && ($this->board[$x+1][$y+1]== null)){
+				if((($this->board[$x][$y+1]== null) && ($this->board[$x+1][$y]== null)) && ($this->board[$x+1][$y+1]== null)) {
 					return true;
-				}else{
-					return false;
 				}
 			} else{
 				// to finish
 				if(((($this->board[$x][$y+1]== null) && 
 					($this->board[$x+1][$y]== null)) && 
 					($this->board[$x+1][$y+1]== null)) && 
-					($this->board[$x+1][$y-1] == null)){
+					($this->board[$x+1][$y-1] == null)) {
 					return true;
-				}else{
-					return false;
 				}
-		} else{
-			if($y == 4){
+			}
+		} else {
+			if($y == 4) {
 				if((((($this->board[$x][$y-1]== null) && 
 					($this->board[$x+1][$y]== null)) && 
 					($this->board[$x+1][$y-1]== null))) &&
-					($this->board[$x-1][$y] == null)){
+					($this->board[$x-1][$y] == null)) {
 					return true;
-				}else{
-					return false;
 				}
 			} elseif ($y == 0) {
 				if((((($this->board[$x][$y+1]== null) && 
 					($this->board[$x+1][$y]== null)) && 
 					($this->board[$x+1][$y+1]== null)) &&
 					($this->board[$x-1][$y] == null)) &&
-					($this->board[$x-1][$y+1] == null)){
-					
+					($this->board[$x-1][$y+1] == null)) {
 					return true;
-				}else{
-					return false;
 				}
 			} else{
 				if(((((((($this->board[$x][$y+1]== null) && 
@@ -363,10 +347,10 @@ class Game {
 					($this->board[$x-1][$y] == null)) &&
 					($this->board[$x-1][$y-1] == null)) {
 					return true;
-				}else{
-					return false;
 				}
+			}
 		}
+		return false;
 	}
 
 	public function endGame() {
