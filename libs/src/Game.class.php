@@ -384,15 +384,11 @@ class Game {
 					$render .= '<td><div class="box"><a href="'.ROOT.'/index.php?p='.$col->getPlayer()->getNumPlayer().'&x='.$x.'&y='.$y.'" class="pawn '.$col->getColor().'"></a>'.$debug.'</div></td>';
 				} else {
 					// moves
-					if(!empty($this->allowedMoves)) {
-						if(
-							$this->allowedMoves['horizontal']['x'] == $x && $this->allowedMoves['horizontal']['y'] == $y
-							|| $this->allowedMoves['vertical']['x'] == $x && $this->allowedMoves['vertical']['y'] == $y
-						) {
-							$render .= '<td><div class="box"><a href="'.ROOT.'/index.php?move&x='.$x.'&y='.$y.'" class="move"></a>'.$debug.'</div></td>';
-						} /*elseif($this->allowedMoves['diagonal']) {
-							
-						}*/
+					if(
+						$this->allowedMoves['horizontal']['x'] == $x && $this->allowedMoves['horizontal']['y'] == $y
+						|| $this->allowedMoves['vertical']['x'] == $x && $this->allowedMoves['vertical']['y'] == $y
+					) {
+						$render .= '<td><div class="box"><a href="'.ROOT.'/index.php?move&x='.$x.'&y='.$y.'" class="move"></a>'.$debug.'</div></td>';
 					} else {
 						$render .= '<td><div class="box">'.$debug.'</div></td>';
 					}

@@ -159,6 +159,13 @@ textarea:focus {
 	background-color: #99C4EC;
 }
 
+.move {
+	position: absolute;
+	width: 80px;
+	height: 80px;
+	background-color: red;
+}
+
 /* mgr */
 .mgr {
 	margin-bottom: 20px;
