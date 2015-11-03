@@ -89,8 +89,15 @@ class Game {
 			$this->board[$destY][$destX] = $this->board[$srcY][$srcX];
 			$this->board[$srcY][$srcX] = null;
 
-			// clean up
+			// clean up allowed moves
 			$this->allowedMoves = array();
+
+			// switch turn
+			if($this->whichTurn == 1) {
+				$this->whichTurn = 2;
+			} elseif($this->whichTurn == 2) {
+				$this->whichTurn = 1;
+			}
 		}
 	}
 
@@ -387,7 +394,11 @@ class Game {
 			foreach($row as $col) {
 				$debug = '<span class="coordinates">'.$x.','.$y.'</span>';
 				if($col != null) {
-					$render .= '<td><div class="box"><a href="'.ROOT.'/index.php?p='.$col->getPlayer()->getNumPlayer().'&x='.$x.'&y='.$y.'" class="pawn '.$col->getColor().'"></a>'.$debug.'</div></td>';
+					if($col->getPlayer()->getNumPlayer() == $this->whichTurn) {
+						$render .= '<td><div class="box"><a href="'.ROOT.'/index.php?p='.$col->getPlayer()->getNumPlayer().'&x='.$x.'&y='.$y.'" class="pawn '.$col->getColor().' playable"></a>'.$debug.'</div></td>';
+					} else {
+						$render .= '<td><div class="box"><a href="'.ROOT.'/index.php?p='.$col->getPlayer()->getNumPlayer().'&x='.$x.'&y='.$y.'" class="pawn '.$col->getColor().'"></a>'.$debug.'</div></td>';
+					}
 				} else {
 					// moves
 					if(
