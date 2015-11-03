@@ -99,6 +99,7 @@ class Game {
 
 	// this method was modified in order to give only one coordinate
 	public function possibleHorizontalMovement($x, $y) {
+		$tmpY = $y;
 		$allowed = array();
 		if($x == 0) {
 			// 0+ : checking on the right side
@@ -111,7 +112,9 @@ class Game {
 					$x++;
 				}
 			}
-			$allowed[] = array('x' => $x-1, 'y' => $y);
+			if($x-1 != $tmpX){
+				$allowed[] = array('x' => $x-1, 'y' => $y);
+			}
 		} elseif($x == 4) {
 			// 4- : checking on the left side
 			$x--;
@@ -123,7 +126,9 @@ class Game {
 					$x--;
 				}
 			}
-			$allowed[] = array('x' => $x+1, 'y' => $y);
+			if($x+1 != $tmpX){
+				$allowed[] = array('x' => $x+1, 'y' => $y);
+			}
 		} elseif($x > 0 || $x < 4) {
 			// 0 < x < 4
 			$right = $x + 1;
@@ -138,7 +143,9 @@ class Game {
 					$right++;
 				}
 			}
-			$allowed[] = array('x' => $right-1, 'y' => $y);
+			if($right-1 != $tmpX){
+				$allowed[] = array('x' => $right-1, 'y' => $y);
+			}
 
 			// checking on the left side
 			while($left >= 0) {
@@ -149,13 +156,16 @@ class Game {
 					$left--;
 				}
 			}
-			$allowed[] = array('x' => $left+1, 'y' => $y);
+			if($left+1 != $tmpX){
+				$allowed[] = array('x' => $left+1, 'y' => $y);
+			}
 		}
 		return $allowed;
 	}
 
 	//this method was modified in order to give only one coordinate
 	public function possibleVerticalMovement($x, $y) {
+		$tmpY = $y;
 		$allowed = array();
 		if($y == 0) {
 			// 0+ : checking on the top side
@@ -168,7 +178,9 @@ class Game {
 					$y++;
 				}
 			}
-			$allowed[] = array('x' => $x, 'y' => $y-1);
+			if($tmpY != $y -1){
+				$allowed[] = array('x' => $x, 'y' => $y-1);
+			}
 		} elseif($y == 4) {
 			// 4- : checking on the bottom side
 			$y--;
@@ -180,7 +192,9 @@ class Game {
 					$y--;
 				}
 			}
-			$allowed[] = array('x' => $x, 'y' => $y+1);
+			if($tmpY != $y+1){
+				$allowed[] = array('x' => $x, 'y' => $y+1);
+			}
 		} elseif($y > 0 || $y < 4) {
 			// 0 < y < 4
 			$top = $y + 1;
@@ -195,7 +209,9 @@ class Game {
 					$top++;
 				}
 			}
-			$allowed[] = array('x' => $x, 'y' => $top-1);
+			if($tmpY != $top -1){
+				$allowed[] = array('x' => $x, 'y' => $top-1);
+			}
 
 			// checking on the bottom side
 			while($bottom >= 0) {
@@ -206,7 +222,9 @@ class Game {
 					$bottom--;
 				}
 			}
-			$allowed[] = array('x' => $x, 'y' => $bottom+1);
+			if($tmpY != $bottom+1){
+				$allowed[] = array('x' => $x, 'y' => $bottom+1);
+			}
 		}
 		return $allowed;
 	}
@@ -231,7 +249,9 @@ class Game {
 				$cptY++;
 				$cursorBox = $this->board[$cptX][$cptY];
 			}
-			array_push($possibleCoord, array($cptX, $cptY));
+			if(($cptX +1 != $x) || ($cptY -1 != $y)){
+				array_push($possibleCoord, array($cptX+1, $cptY-1));
+			}
 		}
 
 		// checking top/right side
@@ -244,7 +264,9 @@ class Game {
 				$cptY--;
 				$cursorBox = $this->board[$cptX][$cptY];
 			}
-			array_push($possibleCoord, array($cptX, $cptY));
+			if(($cptX -1 != $x) || ($cptY +1 != $y)){
+				array_push($possibleCoord, array($cptX-1, $cptY+1));
+			}
 		}
 
 		// checking bottom/right side
@@ -257,7 +279,9 @@ class Game {
 				$cptY++;
 				$cursorBox = $this->board[$cptX][$cptY];
 			}
-			array_push($possibleCoord, array($cptX, $cptY));
+			if(($cptX -1 != $x) || ($cptY -1 != $y)){
+				array_push($possibleCoord, array($cptX-1, $cptY-1));
+			}
 		}
 
 		// checking top/left side
@@ -270,7 +294,9 @@ class Game {
 				$cptY--;
 				$cursorBox = $this->board[$cptX][$cptY];
 			}
-			array_push($possibleCoord, array($cptX, $cptY));
+			if(($cptX+1 != $x) || ($cptY+1 != $y)){
+				array_push($possibleCoord, array($cptX+1, $cptY+1));
+			}
 		}
 
 		return $possibleCoord;
