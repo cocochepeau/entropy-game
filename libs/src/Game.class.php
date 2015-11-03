@@ -111,7 +111,7 @@ class Game {
 					$x++;
 				}
 			}
-			$allowed[] = array('x' => $x, 'y' => $y);
+			$allowed[] = array('x' => $x-1, 'y' => $y);
 		} elseif($x == 4) {
 			// 4- : checking on the left side
 			$x--;
@@ -123,7 +123,7 @@ class Game {
 					$x--;
 				}
 			}
-			$allowed[] = array('x' => $x, 'y' => $y);
+			$allowed[] = array('x' => $x+1, 'y' => $y);
 		} elseif($x > 0 || $x < 4) {
 			// 0 < x < 4
 			$right = $x + 1;
@@ -138,7 +138,7 @@ class Game {
 					$right++;
 				}
 			}
-			$allowed[] = array('x' => $right, 'y' => $y);
+			$allowed[] = array('x' => $right-1, 'y' => $y);
 
 			// checking on the left side
 			while($left >= 0) {
@@ -149,7 +149,7 @@ class Game {
 					$left--;
 				}
 			}
-			$allowed[] = array('x' => $left, 'y' => $y);
+			$allowed[] = array('x' => $left+1, 'y' => $y);
 		}
 		return $allowed;
 	}
@@ -168,7 +168,7 @@ class Game {
 					$y++;
 				}
 			}
-			$allowed[] = array('x' => $x, 'y' => $y);
+			$allowed[] = array('x' => $x, 'y' => $y-1);
 		} elseif($y == 4) {
 			// 4- : checking on the bottom side
 			$y--;
@@ -180,7 +180,7 @@ class Game {
 					$y--;
 				}
 			}
-			$allowed[] = array('x' => $x, 'y' => $y);
+			$allowed[] = array('x' => $x, 'y' => $y+1);
 		} elseif($y > 0 || $y < 4) {
 			// 0 < y < 4
 			$top = $y + 1;
@@ -195,7 +195,7 @@ class Game {
 					$top++;
 				}
 			}
-			$allowed[] = array('x' => $x, 'y' => $top);
+			$allowed[] = array('x' => $x, 'y' => $top-1);
 
 			// checking on the bottom side
 			while($bottom >= 0) {
@@ -206,7 +206,7 @@ class Game {
 					$bottom--;
 				}
 			}
-			$allowed[] = array('x' => $x, 'y' => $bottom);
+			$allowed[] = array('x' => $x, 'y' => $bottom+1);
 		}
 		return $allowed;
 	}
