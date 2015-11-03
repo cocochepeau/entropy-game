@@ -60,6 +60,7 @@ class Game {
 		if(($x >= 0 || $x <= 4) && ($y >= 0 || $y <= 4)	&& ($p == 1 || $p == 2)) {
 			$moves = array();
 			if($this->whichTurn == $p) {
+				// get horizontal moves
 				$moves['horizontal'] = $this->possibleHorizontalMovement($x, $y);
 				// debug
 				Messages::add('response', 'horizontal moves = {');
@@ -69,6 +70,7 @@ class Game {
 				}
 				Messages::add('response', '}' . PHP_EOL);
 
+				// get vertical moves
 				$moves['vertical'] = $this->possibleVerticalMovement($x, $y);
 				// debug
 				Messages::add('response', 'vertical moves = {');
@@ -78,8 +80,15 @@ class Game {
 				}
 				Messages::add('response', '}' . PHP_EOL);
 
+				// get diagonal moves
 				$moves['diagonal'] = $this->possibleDiagonalMovement($x, $y);
 				// debug
+				Messages::add('response', 'diagonal moves = {');
+				foreach($moves['diagonal'] as $key => $value) {
+					if($key >= count($moves['diagonal']) - 1) Messages::add('response', '('.$value['x'].','.$value['x'].')');
+					else Messages::add('response', '('.$value['x'].','.$value['x'].')');
+				}
+				Messages::add('response', '}' . PHP_EOL);
 
 				// looking for blocked pawn
 				if(empty($moves['horizontal']) && empty($moves['vertical'])	&& empty($moves['diagonal'])) {
