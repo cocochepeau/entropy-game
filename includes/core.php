@@ -21,5 +21,5 @@ require_once($autloader);
 Session::init();
 
 // App
-App::init();
-$game = App::getGame();
+$app = new App();
+$game = $app->getGame();

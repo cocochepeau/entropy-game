@@ -1,46 +1,63 @@
 <?php
 class App {
 
-	public static $game = null;
+	public $game = null;
 
-	public static function init() {
+	public function __construct() {
 		// game starter
 		if(isset($_POST['start'])) {
-			if(!Session::get('game')) {
-				$playerOneName = trim($_POST['playerOne']);
-				$playerTwoName = trim($_POST['playerTwo']);
-
-				if($playerOneName != '' && $playerTwoName != '') {
-					self::$game = new Game($playerOneName, $playerTwoName);
-					Session::set('game', self::$game);
-				}
-			}
+			$this->startGame(
+				trim($_POST['playerOne']),
+				trim($_POST['playerTwo'])
+			);
 		}
 
 		// game restarter
 		if(isset($_POST['restart'])) {
-			Session::destroy();
+			$this->restartGame();
 		}
 
-		// retreive game
-		if(!self::$game instanceOf Game) {
-			$game = Session::get('game');
-			if($game) {
-				self::$game = $game;
-			}
-		}
+		// retrieve game from session
+		$this->retrieveGame();
 
 		// if game is being played right now...
-		if(self::$game instanceOf Game) {
+		if($this->game instanceOf Game) {
 			// tests
-			self::$game->possibleMovement($_GET['x'], $_GET['y'], $_GET['p']);
+			$this->game->possibleMovement($_GET['x'], $_GET['y'], $_GET['p']);
 		}
 		
 	}
 
-	public static function getGame() {
-		$game = Session::get('game');
-		if($game) return $game;
+	public function startGame() {
+		if(!Session::get('game')) {
+			$playerOneName = trim($_POST['playerOne']);
+			$playerTwoName = trim($_POST['playerTwo']);
+
+			if($playerOneName != '' && $playerTwoName != '') {
+				$this->game = new Game($playerOneName, $playerTwoName);
+				Session::set('game', $this->game);
+			}
+		}
+	}
+
+	public function restartGame() {
+		Session::destroy();
+	}
+
+	public function getGame() {
+		if($this->game instanceOf Game) {
+			return $this->game;
+		}
+		return false;
+	}
+
+	public function retrieveGame() {
+		if(!$this->game instanceOf Game) {
+			$game = Session::get('game');
+			if($game) {
+				$this->game = $game;
+			}
+		}
 		return false;
 	}
 
