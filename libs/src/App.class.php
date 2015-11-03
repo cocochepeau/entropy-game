@@ -24,6 +24,10 @@ class App {
 		if($this->game instanceOf Game) {
 			// tests
 			$this->game->possibleMovement($_GET['x'], $_GET['y'], $_GET['p']);
+
+			if(isset($_GET['move'])) {
+				
+			}
 		}
 	}
 
