@@ -7,7 +7,7 @@ class Game {
 	private $whichTurn = 1; // 1 = playerOne
 	private $coordPawnToMoveX;  //tmp coordinate of the pawn which have to move.
 	private $coordPawnToMoveY;
-	private $allowedMovement;
+	private $allowedMoves;
 	
 	/*
 	 * array to list all pawns which can't move,
@@ -41,8 +41,8 @@ class Game {
 		// verify if the movement is possible for security
 		$find = false;
 		$cpt = 0;
-		while(($find == false) && ($cpt <= (sizeof($this->allowedMovement) - 1))) {
-			if(($this->allowedMovement[$cpt]['x'] == $x) && ($this->allowedMovement[$cpt]['y'] == $y)) {
+		while(($find == false) && ($cpt <= (sizeof($this->allowedMoves) - 1))) {
+			if(($this->allowedMoves[$cpt]['x'] == $x) && ($this->allowedMoves[$cpt]['y'] == $y)) {
 				$find = true;
 			} else {
 				$cpt++;
@@ -62,33 +62,15 @@ class Game {
 			if($this->whichTurn == $p) {
 				// get horizontal moves
 				$moves['horizontal'] = $this->possibleHorizontalMovement($x, $y);
-				// debug
-				Messages::add('response', 'horizontal moves = {');
-				foreach($moves['horizontal'] as $key => $value) {
-					if($key >= count($moves['horizontal']) - 1) Messages::add('response', '('.$value['x'].','.$value['y'].')');
-					else Messages::add('response', '('.$value['x'].','.$value['y'].'), ');
-				}
-				Messages::add('response', '}' . PHP_EOL);
+				Messages::add('response', 'horizontal move = ('.$moves['horizontal']['x'].','.$moves['horizontal']['y'].')' . PHP_EOL);
 
 				// get vertical moves
 				$moves['vertical'] = $this->possibleVerticalMovement($x, $y);
-				// debug
-				Messages::add('response', 'vertical moves = {');
-				foreach($moves['vertical'] as $key => $value) {
-					if($key >= count($moves['vertical']) - 1) Messages::add('response', '('.$value['x'].','.$value['y'].')');
-					else Messages::add('response', '('.$value['x'].','.$value['y'].'), ');
-				}
-				Messages::add('response', '}' . PHP_EOL);
+				Messages::add('response', 'vertical move = ('.$moves['vertical']['x'].','.$moves['vertical']['y'].')' . PHP_EOL);
 
 				// get diagonal moves
 				$moves['diagonal'] = $this->possibleDiagonalMovement($x, $y);
-				// debug
-				Messages::add('response', 'diagonal moves = {');
-				foreach($moves['diagonal'] as $key => $value) {
-					if($key >= count($moves['diagonal']) - 1) Messages::add('response', '('.$value['x'].','.$value['x'].')');
-					else Messages::add('response', '('.$value['x'].','.$value['x'].')');
-				}
-				Messages::add('response', '}' . PHP_EOL);
+				// Messages::add('response', 'diagonal move = ('.$moves['diagonal']['x'].','.$moves['diagonal']['y'].')' . PHP_EOL);
 
 				// looking for blocked pawn
 				if(empty($moves['horizontal']) && empty($moves['vertical'])	&& empty($moves['diagonal'])) {
@@ -99,9 +81,9 @@ class Game {
 					// player can move pawn
 				}
 			} else {
-				Messages::add('response', "That's NOT your turn, dumb !" . PHP_EOL);
+				Messages::add('response', "That's NOT your turn, dummy !" . PHP_EOL);
 			}
-			$this->allowedMovement = $moves;
+			$this->allowedMoves = $moves;
 		}
 		return false;
 	}
@@ -122,7 +104,7 @@ class Game {
 				}
 			}
 			if($x-1 != $tmpX){
-				$allowed[] = array('x' => $x-1, 'y' => $y);
+				$allowed = array('x' => $x-1, 'y' => $y);
 			}
 		} elseif($x == 4) {
 			// 4- : checking on the left side
@@ -136,7 +118,7 @@ class Game {
 				}
 			}
 			if($x+1 != $tmpX){
-				$allowed[] = array('x' => $x+1, 'y' => $y);
+				$allowed = array('x' => $x+1, 'y' => $y);
 			}
 		} elseif($x > 0 || $x < 4) {
 			// 0 < x < 4
@@ -153,7 +135,7 @@ class Game {
 				}
 			}
 			if($right-1 != $tmpX){
-				$allowed[] = array('x' => $right-1, 'y' => $y);
+				$allowed = array('x' => $right-1, 'y' => $y);
 			}
 
 			// checking on the left side
@@ -166,7 +148,7 @@ class Game {
 				}
 			}
 			if($left+1 != $tmpX){
-				$allowed[] = array('x' => $left+1, 'y' => $y);
+				$allowed = array('x' => $left+1, 'y' => $y);
 			}
 		}
 		return $allowed;
@@ -188,7 +170,7 @@ class Game {
 				}
 			}
 			if($tmpY != $y -1){
-				$allowed[] = array('x' => $x, 'y' => $y-1);
+				$allowed = array('x' => $x, 'y' => $y-1);
 			}
 		} elseif($y == 4) {
 			// 4- : checking on the bottom side
@@ -202,7 +184,7 @@ class Game {
 				}
 			}
 			if($tmpY != $y+1){
-				$allowed[] = array('x' => $x, 'y' => $y+1);
+				$allowed = array('x' => $x, 'y' => $y+1);
 			}
 		} elseif($y > 0 || $y < 4) {
 			// 0 < y < 4
@@ -219,7 +201,7 @@ class Game {
 				}
 			}
 			if($tmpY != $top -1){
-				$allowed[] = array('x' => $x, 'y' => $top-1);
+				$allowed = array('x' => $x, 'y' => $top-1);
 			}
 
 			// checking on the bottom side
@@ -232,7 +214,7 @@ class Game {
 				}
 			}
 			if($tmpY != $bottom+1){
-				$allowed[] = array('x' => $x, 'y' => $bottom+1);
+				$allowed = array('x' => $x, 'y' => $bottom+1);
 			}
 		}
 		return $allowed;
@@ -401,7 +383,17 @@ class Game {
 				if($col != null) {
 					$render .= '<td><div class="box"><a href="'.ROOT.'/index.php?p='.$col->getPlayer()->getNumPlayer().'&x='.$x.'&y='.$y.'" class="pawn '.$col->getColor().'"></a>'.$debug.'</div></td>';
 				} else {
-					$render .= '<td><div class="box">'.$debug.'</div></td>';
+					// moves
+					if(
+						$this->allowedMoves['horizontal']['x'] == $x && $this->allowedMoves['horizontal']['y'] == $y
+						|| $this->allowedMoves['vertical']['x'] == $x && $this->allowedMoves['vertical']['y'] == $y
+					) {
+						$render .= '<td><div class="box"><a href="'.ROOT.'/index.php?move&x='.$x.'&y='.$y.'" class="move"></a>'.$debug.'</div></td>';
+					} /*elseif($this->allowedMoves['diagonal']) {
+						
+					}*/ else {
+						$render .= '<td><div class="box">'.$debug.'</div></td>';
+					}
 				}
 				$x++;
 			}

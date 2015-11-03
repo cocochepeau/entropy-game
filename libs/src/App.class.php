@@ -22,11 +22,21 @@ class App {
 
 		// if game is being played right now...
 		if($this->game instanceOf Game) {
-			// tests
-			$this->game->possibleMovement($_GET['x'], $_GET['y'], $_GET['p']);
+
+			// todo: isAlone()
+
+			$this->game->possibleMovement(
+				$_GET['x'],
+				$_GET['y'],
+				$_GET['p']
+			);
 
 			if(isset($_GET['move'])) {
-				
+				$this->game->deplacer(
+					$_GET['x'],
+					$_GET['y'],
+					$_GET['p']
+				);
 			}
 		}
 	}
@@ -56,6 +66,7 @@ class App {
 
 	public function retrieveGame() {
 		$game = Session::get('game');
+		$game = $_SESSION['game'];
 		if($game) {
 			$this->game = $game;
 			return true;
