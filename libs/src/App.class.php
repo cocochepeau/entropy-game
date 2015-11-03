@@ -33,9 +33,10 @@ class App {
 
 			if(isset($_GET['move'])) {
 				$this->game->deplacer(
-					$_GET['x'],
-					$_GET['y'],
-					$_GET['p']
+					$_GET['srcX'],
+					$_GET['srcY'],
+					$_GET['destX'],
+					$_GET['destY']
 				);
 			}
 		}

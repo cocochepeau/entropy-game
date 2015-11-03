@@ -11,10 +11,8 @@ $(function() {
 
 		if($.cookie('debug') == 0) {
 			$.cookie('debug', 1);
-			$('.debug').hide();
 		} else {
 			$.cookie('debug', 0);
-			$('.debug').show();
 		}
 
 		$('.debug').toggle();
