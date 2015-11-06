@@ -80,7 +80,7 @@ class Game {
 		return false;
 	}
 
-	public function deplacer($srcX, $srcY, $destX, $destY) {
+	public function move($srcX, $srcY, $destX, $destY) {
 		// todo: verify if the movement is possible for security
 		$allowed = true;
 
@@ -302,75 +302,183 @@ class Game {
 	public function isAlone($x, $y) {
 		if($x == 4) {
 			if($y == 4) {
-				if((($this->board[$x][$y-1]== null) && ($this->board[$x-1][$y]== null)) && ($this->board[$x-1][$y-1]== null)) {
+				if((($this->board[$y-1][$x]== null) && ($this->board[$y][$x-1]== null)) && ($this->board[$y-1][$x-1]== null)) {
 					return true;
 				}
 			} elseif ($y == 0) {
-				if((($this->board[$x][$y+1]== null) && ($this->board[$x-1][$y]== null)) && ($this->board[$x-1][$y+1]== null)) {
+				if((($this->board[$y+1][$x]== null) && ($this->board[$y][$x-1]== null)) && ($this->board[$y+1][$x-1]== null)) {
 					return true;
 				}
 			} else {
 				// to finish
-				if(((($this->board[$x][$y+1]== null) && 
-					($this->board[$x-1][$y]== null)) && 
-					($this->board[$x-1][$y+1]== null)) && 
-					($this->board[$x-1][$y-1] == null)) {
+				if(((($this->board[$y+1][$x]== null) && 
+					($this->board[$y][$x-1]== null)) && 
+					($this->board[$y+1][$x-1]== null)) && 
+					($this->board[$y-1][$x-1] == null)) {
 					return true;
 				}
 			}
 		} elseif ($x == 0) {
 			if($y == 4) {
-				if((($this->board[$x][$y-1]== null) && ($this->board[$x+1][$y]== null)) && ($this->board[$x+1][$y-1]== null)) {
+				if((($this->board[$y-1][$x]== null) && ($this->board[$y][$x+1]== null)) && ($this->board[$y-1][$x+1]== null)) {
 					return true;
 				}
 			} elseif ($y == 0) {
-				if((($this->board[$x][$y+1]== null) && ($this->board[$x+1][$y]== null)) && ($this->board[$x+1][$y+1]== null)) {
+				if((($this->board[$y+1][$x]== null) && ($this->board[$y][$x+1]== null)) && ($this->board[$x+1][$y+1]== null)) {
 					return true;
 				}
 			} else{
 				// to finish
-				if(((($this->board[$x][$y+1]== null) && 
-					($this->board[$x+1][$y]== null)) && 
-					($this->board[$x+1][$y+1]== null)) && 
-					($this->board[$x+1][$y-1] == null)) {
+				if(((($this->board[$y+1][$x]== null) && 
+					($this->board[$y][$x+1]== null)) && 
+					($this->board[$y+1][$x+1]== null)) && 
+					($this->board[$y-1][$x+1] == null)) {
 					return true;
 				}
 			}
-		} else {
-			if($y == 4) {
-				if((((($this->board[$x][$y-1]== null) && 
-					($this->board[$x+1][$y]== null)) && 
-					($this->board[$x+1][$y-1]== null))) &&
-					($this->board[$x-1][$y] == null)) {
+		} elseif($y == 4) {
+				if((((($this->board[$y-1][$x]== null) && 
+					($this->board[$y][$x+1]== null)) && 
+					($this->board[$y-1][$x+1]== null))) &&
+					($this->board[$y][$x-1] == null)) {
 					return true;
 				}
 			} elseif ($y == 0) {
-				if((((($this->board[$x][$y+1]== null) && 
-					($this->board[$x+1][$y]== null)) && 
-					($this->board[$x+1][$y+1]== null)) &&
-					($this->board[$x-1][$y] == null)) &&
-					($this->board[$x-1][$y+1] == null)) {
+				if((((($this->board[$y+1][$x]== null) && 
+					($this->board[$y][$x+1]== null)) && 
+					($this->board[$y+1][$x+1]== null)) &&
+					($this->board[$y][$x-1] == null)) &&
+					($this->board[$y+1][$x-1] == null)) {
 					return true;
 				}
 			} else{
-				if(((((((($this->board[$x][$y+1]== null) && 
-					($this->board[$x+1][$y]== null)) && 
-					($this->board[$x+1][$y+1]== null)) && 
-					($this->board[$x+1][$y-1] == null)) &&
-					($this->board[$x-1][$y-1] == null)) &&
-					($this->board[$x][$y-1] == null)) &&
-					($this->board[$x-1][$y] == null)) &&
-					($this->board[$x-1][$y-1] == null)) {
+				if(((((((($this->board[$y+1][$x]== null) && 
+					($this->board[$y][$x+1]== null)) && 
+					($this->board[$y+1][$x+1]== null)) && 
+					($this->board[$y-1][$x+1] == null)) &&
+					($this->board[$y-1][$x-1] == null)) &&
+					($this->board[$y-1][$x] == null)) &&
+					($this->board[$y][$x-1] == null)) &&
+					($this->board[$y-1][$x-1] == null)) {
 					return true;
-				}
+				}else{return false;}
 			}
 		}
 		return false;
 	}
 
 	public function isBlocked($x, $y) {
+		$colorpawn = $this->board[$y][$x].getColor();
+		if($x == 4) {
+				if($y == 4) {
+					if((($this->board[$y-1][$x]->getColor() != $colorpawn) || ($this->board[$y][$x-1]->getColor() != $colorpawn)) || ($this->board[$y-1][$x-1]->getColor() != $colorpawn)) {
+						return true;
+					}
+				} elseif ($y == 0) {
+					if((($this->board[$y+1][$x]->getColor() != $colorpawn) || ($this->board[$y][$x-1]->getColor() != $colorpawn)) || ($this->board[$y+1][$x-1]->getColor() != $colorpawn)) {
+						return true;
+					}
+				} else {
+					// to finish
+					if(((($this->board[$y+1][$x]->getColor() != $colorpawn) || 
+						($this->board[$y][$x-1]->getColor() != $colorpawn)) ||
+						($this->board[$y+1][$x-1]->getColor() != $colorpawn)) || 
+						($this->board[$y-1][$x-1]->getColor() != $colorpawn)) {
+						return true;
+					}
+				}
+			} elseif ($x == 0) {
+				if($y == 4) {
+					if((($this->board[$y-1][$x]->getColor() != $colorpawn) || ($this->board[$y][$x+1]->getColor() != $colorpawn)) || ($this->board[$y-1][$x+1]->getColor() != $colorpawn)) {
+						return true;
+					}
+				} elseif ($y == 0) {
+					if((($this->board[$y+1][$x]->getColor() != $colorpawn) || ($this->board[$y][$x+1]->getColor() != $colorpawn)) || ($this->board[$x+1][$y+1]->getColor() != $colorpawn)) {
+						return true;
+					}
+				} else{
+					// to finish
+					if(((($this->board[$y+1][$x]->getColor() != $colorpawn) || 
+						($this->board[$y][$x+1]->getColor() != $colorpawn)) || 
+						($this->board[$y+1][$x+1]->getColor() != $colorpawn)) || 
+						($this->board[$y-1][$x+1]->getColor() != $colorpawn)) {
+						return true;
+					}
+				}
+			} elseif($y == 4) {
+					if((((($this->board[$y-1][$x]->getColor() != $colorpawn) || 
+						($this->board[$y][$x+1]->getColor() != $colorpawn)) || 
+						($this->board[$y-1][$x+1]->getColor() != $colorpawn))) ||
+						($this->board[$y][$x-1]->getColor() != $colorpawn)) {
+						return true;
+					}
+				} elseif ($y == 0) {
+					if((((($this->board[$y+1][$x]->getColor() != $colorpawn) || 
+						($this->board[$y][$x+1]->getColor() != $colorpawn)) || 
+						($this->board[$y+1][$x+1]->getColor() != $colorpawn)) ||
+						($this->board[$y][$x-1]->getColor() != $colorpawn)) ||
+						($this->board[$y+1][$x-1]->getColor() != $colorpawn)) {
+						return true;
+					}
+				} else{
+					if(((((((($this->board[$y+1][$x]->getColor() != $colorpawn) || 
+						($this->board[$y][$x+1]->getColor() != $colorpawn)) || 
+						($this->board[$y+1][$x+1]->getColor() != $colorpawn)) || 
+						($this->board[$y-1][$x+1]->getColor() != $colorpawn)) ||
+						($this->board[$y-1][$x-1]->getColor() != $colorpawn)) ||
+						($this->board[$y-1][$x]->getColor() != $colorpawn)) ||
+						($this->board[$y][$x-1]->getColor() != $colorpawn)) ||
+						($this->board[$y-1][$x-1]->getColor() != $colorpawn)) {
+						return true;
+					}else{
+						return false;
+					}
+				}
+			}
+			return false;
+	
+	}
+
+	public function allowedMovedToAlone($alonePawns){
+		//parameters array which come from scanLoniless()
+		//return array src of pawn and destination
+		$aloneX = 0;
+		$aloneY = 0;
+		for($i = 0; i<= sizeof($alonePawns) -1 ; $i++){
+			$aloneX = $alonePawns[$i]["x"];
+			$aloneY = $alonePawns[$i]["y"];
+		}
 		
-		return false;
+		
+	}
+	
+	public function scanLoniless(){
+		//scan all pawn if it alone... 
+		//return an array of alone pawns
+		$alonePawns = array();
+		for($i = 0; $i<=4; $i++){
+			for($k = 0; $k <= 4; $k++){
+				if($this->isAlone($k, $i)){
+					$alonePawns[] = array('x' => $k, 'y' => $i);
+				}
+			}
+		}
+		
+		return $alonePawns;
+	}
+	
+	public function scanBlocked(){
+		for($i = 0; $i<=4; $i++){
+			for($k = 0; $k <= 4; $k++){
+				if($this->isBlocked($k, $i)){
+					if($this->board[$i][$k] == "yellow"){
+						$this->staticPawnYelow[] = array('x' => $k, 'y' => $i);
+					}else{
+						$this->staticPawnBlue[] = array('x' => $k, 'y' => $i);
+					}
+				}
+			}
+		}
 	}
 
 	public function endGame() {
