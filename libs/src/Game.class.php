@@ -8,6 +8,8 @@ class Game {
 	private $coordPawnToMoveX;  //tmp coordinate of the pawn which have to move.
 	private $coordPawnToMoveY;
 	private $allowedMoves;
+	private $srcX;
+	private $srcY;
 	
 	/*
 	 * array to list all pawns which can't move,
@@ -36,32 +38,22 @@ class Game {
 		return $this->playerTwo;
 	}
 
-	public function deplacer($x, $y, $p) { // coordinates of destination
-		// TODO
-		// verify if the movement is possible for security
-		$find = false;
-		$cpt = 0;
-		while(($find == false) && ($cpt <= (sizeof($this->allowedMoves) - 1))) {
-			if(($this->allowedMoves[$cpt]['x'] == $x) && ($this->allowedMoves[$cpt]['y'] == $y)) {
-				$find = true;
-			} else {
-				$cpt++;
-			}
-		}
-	}
-
 	// return an array of coordinate
-	public function possibleMovement($x, $y, $p) {
+	public function possibleMovement($x, $y, $p) { // coord de départ
 		// sanitizing
 		$x = (int)$x;
 		$y = (int)$y;
 		$p = (int)$p;
+
+		$this->srcX = $x;
+		$this->srcY = $y;
 
 		if(($x >= 0 || $x <= 4) && ($y >= 0 || $y <= 4)	&& ($p == 1 || $p == 2)) {
 			$moves = array();
 			if($this->whichTurn == $p) {
 				// get horizontal moves
 				$moves['horizontal'] = $this->possibleHorizontalMovement($x, $y);
+				
 				Messages::add('response', 'horizontal move = ('.$moves['horizontal']['x'].','.$moves['horizontal']['y'].')' . PHP_EOL);
 
 				// get vertical moves
@@ -86,6 +78,27 @@ class Game {
 			$this->allowedMoves = $moves;
 		}
 		return false;
+	}
+
+	public function deplacer($srcX, $srcY, $destX, $destY) {
+		// todo: verify if the movement is possible for security
+		$allowed = true;
+
+		// and then move if allowed
+		if($allowed) {
+			$this->board[$destY][$destX] = $this->board[$srcY][$srcX];
+			$this->board[$srcY][$srcX] = null;
+
+			// clean up allowed moves
+			$this->allowedMoves = array();
+
+			// switch turn
+			if($this->whichTurn == 1) {
+				$this->whichTurn = 2;
+			} elseif($this->whichTurn == 2) {
+				$this->whichTurn = 1;
+			}
+		}
 	}
 
 	// this method was modified in order to give only one coordinate
@@ -374,14 +387,18 @@ class Game {
 			foreach($row as $col) {
 				$debug = '<span class="coordinates">'.$x.','.$y.'</span>';
 				if($col != null) {
-					$render .= '<td><div class="box"><a href="'.ROOT.'/index.php?p='.$col->getPlayer()->getNumPlayer().'&x='.$x.'&y='.$y.'" class="pawn '.$col->getColor().'"></a>'.$debug.'</div></td>';
+					if($col->getPlayer()->getNumPlayer() == $this->whichTurn) {
+						$render .= '<td><div class="box"><a href="'.ROOT.'/index.php?p='.$col->getPlayer()->getNumPlayer().'&x='.$x.'&y='.$y.'" class="pawn '.$col->getColor().' playable"></a>'.$debug.'</div></td>';
+					} else {
+						$render .= '<td><div class="box"><a href="'.ROOT.'/index.php?p='.$col->getPlayer()->getNumPlayer().'&x='.$x.'&y='.$y.'" class="pawn '.$col->getColor().'"></a>'.$debug.'</div></td>';
+					}
 				} else {
 					// moves
 					if(
 						$this->allowedMoves['horizontal']['x'] == $x && $this->allowedMoves['horizontal']['y'] == $y
 						|| $this->allowedMoves['vertical']['x'] == $x && $this->allowedMoves['vertical']['y'] == $y
 					) {
-						$render .= '<td><div class="box"><a href="'.ROOT.'/index.php?move&x='.$x.'&y='.$y.'" class="move"></a>'.$debug.'</div></td>';
+						$render .= '<td><div class="box"><a href="'.ROOT.'/index.php?move&srcX='.$this->srcX.'&srcY='.$this->srcY.'&destX='.$x.'&destY='.$y.'" class="move"></a>'.$debug.'</div></td>';
 					} else {
 						$render .= '<td><div class="box">'.$debug.'</div></td>';
 					}
