@@ -24,12 +24,16 @@ class App {
 		if($this->game instanceOf Game) {
 
 			// todo: isAlone()
+			// todo: isBlocked()
 
-			$this->game->possibleMovement(
-				$_GET['x'],
-				$_GET['y'],
-				$_GET['p']
-			);
+			if(isset($_GET['select'])) {
+				$this->game->possibleMovement(
+					$_GET['x'],
+					$_GET['y'],
+					$_GET['p']
+				);
+			}
+
 
 			if(isset($_GET['move'])) {
 				$this->game->move(

@@ -5,12 +5,10 @@ class Game {
 	private $playerTwo;
 	private $board;
 	private $whichTurn = 1; // 1 = playerOne
-	private $coordPawnToMoveX;  //tmp coordinate of the pawn which have to move.
-	private $coordPawnToMoveY;
 	private $allowedMoves;
 	private $srcX;
 	private $srcY;
-	
+
 	/*
 	 * array to list all pawns which can't move,
 	 * it's quick to check in this array if the game is ended.
@@ -39,7 +37,7 @@ class Game {
 	}
 
 	// return an array of coordinate
-	public function possibleMovement($x, $y, $p) { // coord de départ
+	public function possibleMovement($x, $y, $p) {
 		// sanitizing
 		$x = (int)$x;
 		$y = (int)$y;
@@ -62,7 +60,6 @@ class Game {
 
 				// get diagonal moves
 				$moves['diagonal'] = $this->possibleDiagonalMovement($x, $y);
-				var_dump($moves['diagonal']);
 				// Messages::add('response', 'diagonal move = ('.$moves['diagonal']['x'].','.$moves['diagonal']['y'].')' . PHP_EOL);
 
 				// looking for blocked pawn
@@ -82,8 +79,12 @@ class Game {
 	}
 
 	public function move($srcX, $srcY, $destX, $destY) {
-		// todo: verify if the movement is possible for security
-		$allowed = true;
+		// todo: check if movements are allowed for security
+		if(!empty($this->allowedMoves)) {
+			$allowed = true;
+		} else {
+			$allowed = false;
+		}
 
 		// and then move if allowed
 		if($allowed) {
@@ -234,30 +235,21 @@ class Game {
 		return $allowed;
 	}
 
-
-	// TODO: Change this method to give only one coordinate.
 	public function possibleDiagonalMovement($x, $y) {
-		// checking bottom/left side
-		// checking top/right side
-		// checking bottom/right side
-		// checking top/left side
-
 		$allowedMoves = array();
 		$cptX = $x - 1;
 		$cptY = $y + 1;
 
 		// checking bottom/left side
-		if(($cptX >= 0) && ($cptY <= 4)){ // is to avoid an nuller pointer error on the board's array.
+		if(($cptX >= 0) && ($cptY <= 4)){
 			while((($cptX >= 0) && ($cptY <= 4)) && $this->board[$cptY][$cptX] == null) {
 				$cptX--;
 				$cptY++;
 			}
-			if(($cptX +1 != $x) || ($cptY -1 != $y)){
-				$allowedMoves[] = array(
-					'bottomLeft' => array(
-						'x' => $cptX+1,
-						'y' => $cptY-1
-					)
+			if(($cptX +1 != $x) || ($cptY -1 != $y)) {
+				$allowedMoves['bottomLeft'] = array(
+					'x' => $cptX+1,
+					'y' => $cptY-1
 				);
 			}
 		}
@@ -265,17 +257,15 @@ class Game {
 		// checking top/right side
 		$cptX = $x + 1;
 		$cptY = $y - 1;
-		if(($cptX <= 4) && ($cptY >= 0)){
+		if(($cptX <= 4) && ($cptY >= 0)) {
 			while((($cptX <= 4) && ($cptY >= 0)) &&  $this->board[$cptY][$cptX] == null) {
 				$cptX++;
 				$cptY--;
 			}
-			if(($cptX -1 != $x) || ($cptY +1 != $y)){
-				$allowedMoves[] = array(
-					'topRight' => array(
-						'x' => $cptX-1,
-						'y' => $cptY+1
-					)
+			if(($cptX -1 != $x) || ($cptY +1 != $y)) {
+				$allowedMoves['topRight'] = array(
+					'x' => $cptX-1,
+					'y' => $cptY+1
 				);
 			}
 		}
@@ -283,18 +273,15 @@ class Game {
 		// checking bottom/right side
 		$cptX = $x + 1;
 		$cptY = $y + 1;
-		if(($cptX <= 4) && ($cptY <= 4)){
-
+		if(($cptX <= 4) && ($cptY <= 4)) {
 			while((($cptX <= 4) && ($cptY <= 4)) && $this->board[$cptY][$cptX] == null) {
 				$cptX++;
 				$cptY++;
 			}
-			if(($cptX -1 != $x) || ($cptY -1 != $y)){
-				$allowedMoves[] = array(
-					'bottomRight' => array(
-						'x' => $cptX-1,
-						'y' => $cptY-1
-					)
+			if(($cptX -1 != $x) || ($cptY -1 != $y)) {
+				$allowedMoves['bottomRight'] = array(
+					'x' => $cptX-1,
+					'y' => $cptY-1
 				);
 			}
 		}
@@ -302,17 +289,15 @@ class Game {
 		// checking top/left side
 		$cptX = $x - 1;
 		$cptY = $y - 1;
-		if(($cptX >= 0) && ($cptY >= 0)){
+		if(($cptX >= 0) && ($cptY >= 0)) {
 			while((($cptX >= 0) && ($cptY >= 0)) && $this->board[$cptY][$cptX] == null) {
 				$cptX--;
 				$cptY--;
 			}
-			if(($cptX+1 != $x) || ($cptY+1 != $y)){
-				$allowedMoves[] = array(
-					'topLeft' => array(
-						'x' => $cptX+1,
-						'y' => $cptY+1
-					)
+			if(($cptX+1 != $x) || ($cptY+1 != $y)) {
+				$allowedMoves['topLeft'] = array(
+					'x' => $cptX+1,
+					'y' => $cptY+1
 				);
 			}
 		}
@@ -409,17 +394,21 @@ class Game {
 				$debug = '<span class="coordinates">'.$x.','.$y.'</span>';
 				if($col != null) {
 					if($col->getPlayer()->getNumPlayer() == $this->whichTurn) {
-						$render .= '<td><div class="box"><a href="'.ROOT.'/index.php?p='.$col->getPlayer()->getNumPlayer().'&x='.$x.'&y='.$y.'" class="pawn '.$col->getColor().' playable"></a>'.$debug.'</div></td>';
+						$render .= '<td><div class="box"><a href="'.ROOT.'/index.php?select&p='.$col->getPlayer()->getNumPlayer().'&x='.$x.'&y='.$y.'" class="pawn '.$col->getColor().' playable"></a>'.$debug.'</div></td>';
 					} else {
-						$render .= '<td><div class="box"><a href="'.ROOT.'/index.php?p='.$col->getPlayer()->getNumPlayer().'&x='.$x.'&y='.$y.'" class="pawn '.$col->getColor().'"></a>'.$debug.'</div></td>';
+						$render .= '<td><div class="box"><a href="'.ROOT.'/index.php?select&p='.$col->getPlayer()->getNumPlayer().'&x='.$x.'&y='.$y.'" class="pawn '.$col->getColor().'"></a>'.$debug.'</div></td>';
 					}
 				} else {
 					// moves
 					if(
 						$this->allowedMoves['horizontal']['x'] == $x && $this->allowedMoves['horizontal']['y'] == $y
 						|| $this->allowedMoves['vertical']['x'] == $x && $this->allowedMoves['vertical']['y'] == $y
+						|| $this->allowedMoves['diagonal']['topLeft']['x'] == $x && $this->allowedMoves['diagonal']['topLeft']['y'] == $y
+						|| $this->allowedMoves['diagonal']['topRight']['x'] == $x && $this->allowedMoves['diagonal']['topRight']['y'] == $y
+						|| $this->allowedMoves['diagonal']['bottomLeft']['x'] == $x && $this->allowedMoves['diagonal']['bottomLeft']['y'] == $y
+						|| $this->allowedMoves['diagonal']['bottomRight']['x'] == $x && $this->allowedMoves['diagonal']['bottomRight']['y'] == $y
 					) {
-						$render .= '<td><div class="box"><a href="'.ROOT.'/index.php?move&srcX='.$this->srcX.'&srcY='.$this->srcY.'&destX='.$x.'&destY='.$y.'" class="move"></a>'.$debug.'</div></td>';
+						$render .= '<td><div class="box"><a href="'.ROOT.'/index.php?move&srcX='.$this->srcX.'&srcY='.$this->srcY.'&destX='.$x.'&destY='.$y.'" class="pawn movable"></a>'.$debug.'</div></td>';
 					} else {
 						$render .= '<td><div class="box">'.$debug.'</div></td>';
 					}

@@ -4,9 +4,6 @@ class Pawn {
 	private $color;
 	private $player;
 
-	// Player 1: yellow
-	// Player 2: blue
-
 	public function __construct($player) {
 		$this->player = $player;
 		if($this->player->getNumPlayer() == 1) {
