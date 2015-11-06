@@ -81,7 +81,7 @@ class Game {
 		return false;
 	}
 
-	public function deplacer($srcX, $srcY, $destX, $destY) {
+	public function move($srcX, $srcY, $destX, $destY) {
 		// todo: verify if the movement is possible for security
 		$allowed = true;
 
