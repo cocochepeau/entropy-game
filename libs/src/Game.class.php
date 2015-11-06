@@ -62,6 +62,7 @@ class Game {
 
 				// get diagonal moves
 				$moves['diagonal'] = $this->possibleDiagonalMovement($x, $y);
+				var_dump($moves['diagonal']);
 				// Messages::add('response', 'diagonal move = ('.$moves['diagonal']['x'].','.$moves['diagonal']['y'].')' . PHP_EOL);
 
 				// looking for blocked pawn
@@ -241,7 +242,7 @@ class Game {
 		// checking bottom/right side
 		// checking top/left side
 
-		$possibleCoord = array();
+		$allowedMoves = array();
 		$cptX = $x - 1;
 		$cptY = $y + 1;
 
@@ -252,7 +253,12 @@ class Game {
 				$cptY++;
 			}
 			if(($cptX +1 != $x) || ($cptY -1 != $y)){
-				$possibleCoord[] = array('bottomLeft' => array($cptX+1, $cptY-1));
+				$allowedMoves[] = array(
+					'bottomLeft' => array(
+						'x' => $cptX+1,
+						'y' => $cptY-1
+					)
+				);
 			}
 		}
 
@@ -265,7 +271,12 @@ class Game {
 				$cptY--;
 			}
 			if(($cptX -1 != $x) || ($cptY +1 != $y)){
-				$possibleCoord[] = array('topRight' => array($cptX-1, $cptY+1));
+				$allowedMoves[] = array(
+					'topRight' => array(
+						'x' => $cptX-1,
+						'y' => $cptY+1
+					)
+				);
 			}
 		}
 
@@ -279,7 +290,12 @@ class Game {
 				$cptY++;
 			}
 			if(($cptX -1 != $x) || ($cptY -1 != $y)){
-				$possibleCoord[] = array('bottomRight' => array($cptX-1, $cptY-1));
+				$allowedMoves[] = array(
+					'bottomRight' => array(
+						'x' => $cptX-1,
+						'y' => $cptY-1
+					)
+				);
 			}
 		}
 
@@ -292,11 +308,16 @@ class Game {
 				$cptY--;
 			}
 			if(($cptX+1 != $x) || ($cptY+1 != $y)){
-				$possibleCoord[] = array('topLeft' => array($cptX+1, $cptY+1));
+				$allowedMoves[] = array(
+					'topLeft' => array(
+						'x' => $cptX+1,
+						'y' => $cptY+1
+					)
+				);
 			}
 		}
 
-		return $possibleCoord;
+		return $allowedMoves;
 	}
 
 	public function isAlone($x, $y) {
