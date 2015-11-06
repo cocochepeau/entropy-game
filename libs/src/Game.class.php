@@ -234,11 +234,9 @@ class Game {
 
 		// checking bottom/left side
 		if(($cptX >= 0) && ($cptY <= 4)){ // is to avoid an nuller pointer error on the board's array.
-			$cursorBox = $this->board[$cptX][$cptY];
-			while((($cptX >= 0) && ($cptY <= 4)) && $cursorBox == null) {
+			while((($cptX >= 0) && ($cptY <= 4)) && $this->board[$cptY][$cptX] == null) {
 				$cptX--;
 				$cptY++;
-				$cursorBox = $this->board[$cptX][$cptY];
 			}
 			if(($cptX +1 != $x) || ($cptY -1 != $y)){
 				$possibleCoord[] = array('bottomLeft' => array($cptX+1, $cptY-1));
@@ -249,11 +247,9 @@ class Game {
 		$cptX = $x + 1;
 		$cptY = $y - 1;
 		if(($cptX <= 4) && ($cptY >= 0)){
-			$cursorBox = $this->board[$cptX][$cptY];
-			while((($cptX <= 4) && ($cptY >= 0)) && $cursorBox == null) {
+			while((($cptX <= 4) && ($cptY >= 0)) &&  $this->board[$cptY][$cptX] == null) {
 				$cptX++;
 				$cptY--;
-				$cursorBox = $this->board[$cptX][$cptY];
 			}
 			if(($cptX -1 != $x) || ($cptY +1 != $y)){
 				$possibleCoord[] = array('topRight' => array($cptX-1, $cptY+1));
@@ -264,11 +260,10 @@ class Game {
 		$cptX = $x + 1;
 		$cptY = $y + 1;
 		if(($cptX <= 4) && ($cptY <= 4)){
-			$cursorBox = $this->board[$cptX][$cptY];
-			while((($cptX <= 4) && ($cptY <= 4)) && $cursorBox == null) {
+
+			while((($cptX <= 4) && ($cptY <= 4)) && $this->board[$cptY][$cptX] == null) {
 				$cptX++;
 				$cptY++;
-				$cursorBox = $this->board[$cptX][$cptY];
 			}
 			if(($cptX -1 != $x) || ($cptY -1 != $y)){
 				$possibleCoord[] = array('bottomRight' => array($cptX-1, $cptY-1));
@@ -279,11 +274,9 @@ class Game {
 		$cptX = $x - 1;
 		$cptY = $y - 1;
 		if(($cptX >= 0) && ($cptY >= 0)){
-			$cursorBox = $this->board[$cptX][$cptY];
-			while((($cptX >= 0) && ($cptY >= 0)) && $cursorBox == null) {
+			while((($cptX >= 0) && ($cptY >= 0)) && $this->board[$cptY][$cptX] == null) {
 				$cptX--;
 				$cptY--;
-				$cursorBox = $this->board[$cptX][$cptY];
 			}
 			if(($cptX+1 != $x) || ($cptY+1 != $y)){
 				$possibleCoord[] = array('topLeft' => array($cptX+1, $cptY+1));
@@ -368,7 +361,7 @@ class Game {
 	}
 
 	public function endGame() {
-		return ((count($this->$staticPawnYelow) >= 5) || (count($this->$staticPawnBlue) >= 5));
+		return ((count($this->staticPawnYelow) >= 5) || (count($this->staticPawnBlue) >= 5));
 	}
 
 	public function drawBoard() {
