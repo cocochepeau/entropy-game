@@ -16,6 +16,10 @@
 		<div class="wrapper">
 			<h1 class="brand">Entropy Game</h1>
 			<?php
+			if($game->endGame())
+			{
+				$winner $game->getWinner();
+			}
 			if($game)
 			{
 				?>
@@ -31,6 +35,7 @@
 				</div>
 				<?php
 			}
+			elseif($ga)
 			else
 			{
 				?>
