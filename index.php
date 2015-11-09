@@ -16,9 +16,14 @@
 		<div class="wrapper">
 			<h1 class="brand">Entropy Game</h1>
 			<?php
-			if($game->endGame())
+			$winner = $game->endGame();
+			if($winner)
 			{
-				$winner $game->getWinner();
+				?>
+				<div class="mgr">
+					<h3>Nous avons un gagnant ! Il s'agit de <?= $winner->getNamePlayer(); ?></h3>
+				</div>
+				<?php
 			}
 			if($game)
 			{
