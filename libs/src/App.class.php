@@ -21,7 +21,7 @@ class App {
 		$this->retrieveGame();
 
 		// if game is being played right now...
-		if($this->game instanceOf Game) {
+		if($this->game != null) { // instanceOf Game
 
 			// todo: isAlone()
 			// todo: isBlocked()
@@ -33,7 +33,6 @@ class App {
 					$_GET['p']
 				);
 			}
-
 
 			if(isset($_GET['move'])) {
 				$this->game->move(
@@ -63,7 +62,7 @@ class App {
 	}
 
 	public function getGame() {
-		if($this->game instanceOf Game) {
+		if($this->game != null) { // instanceOf Game
 			return $this->game;
 		}
 		return false;
@@ -71,7 +70,6 @@ class App {
 
 	public function retrieveGame() {
 		$game = Session::get('game');
-		$game = $_SESSION['game'];
 		if($game) {
 			$this->game = $game;
 			return true;
