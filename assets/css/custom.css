@@ -163,16 +163,8 @@ textarea:focus {
 	border-color: green;
 }
 
-.move {
-	position: absolute;
-	top: 20px;
-	left: 20px;
-	width: 40px;
-	height: 40px;
-	-webkit-border-radius: 9999px;
-	-moz-border-radius: 9999px;
-	border-radius: 9999px;
-	background-color: #888888;
+.movable {
+	border-style: dashed !important;
 }
 
 /* mgr */
