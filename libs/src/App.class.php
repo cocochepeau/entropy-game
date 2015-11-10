@@ -24,7 +24,10 @@ class App {
 		if($this->game != null) { // instanceOf Game
 
 			// todo: isAlone()
+			
+
 			// todo: isBlocked()
+			$this->game->scanBlocked();
 
 			if(isset($_GET['select'])) {
 				$this->game->possibleMovement(

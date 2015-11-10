@@ -16,31 +16,31 @@
 		<div class="wrapper">
 			<h1 class="brand">Entropy Game</h1>
 			<?php
-			$winner = $game->endGame();
-			if($winner)
-			{
-				?>
-				<div class="mgr">
-					<h3>Nous avons un gagnant ! Il s'agit de <?= $winner->getNamePlayer(); ?></h3>
-				</div>
-				<?php
+			if($game) {
+				$winner = $game->endGame();
+				if($winner) {
+					?>
+					<div class="mgr">
+						<h3>Nous avons un gagnant ! Il s'agit de <?= $winner->getNamePlayer(); ?></h3>
+					</div>
+					<?php
+				}
+				else
+				{
+					?>
+					<div class="board">
+						<?php $game->drawBoard(); ?>
+					</div>
+					<div class="mgr">
+						<h3 class="pn pn-one"><?= htmlentities($game->getPlayerOne()->getNamePlayer(), HE_FLAGS, CHARSET); ?></h3>
+						<h3 class="pn pn-two"><?= htmlentities($game->getPlayerTwo()->getNamePlayer(), HE_FLAGS, CHARSET); ?></h3>
+						<form action="<?= ROOT; ?>/index.php" method="post">
+							<button class="btn btn-block" type="submit" name="restart">Relancer</button>
+						</form>
+					</div>
+					<?php
+				}
 			}
-			if($game)
-			{
-				?>
-				<div class="board">
-					<?php $game->drawBoard(); ?>
-				</div>
-				<div class="mgr">
-					<h3 class="pn pn-one"><?= htmlentities($game->getPlayerOne()->getNamePlayer(), HE_FLAGS, CHARSET); ?></h3>
-					<h3 class="pn pn-two"><?= htmlentities($game->getPlayerTwo()->getNamePlayer(), HE_FLAGS, CHARSET); ?></h3>
-					<form action="<?= ROOT; ?>/index.php" method="post">
-						<button class="btn btn-block" type="submit" name="restart">Relancer</button>
-					</form>
-				</div>
-				<?php
-			}
-			elseif($ga)
 			else
 			{
 				?>
