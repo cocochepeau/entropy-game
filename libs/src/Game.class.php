@@ -391,12 +391,18 @@ class Game {
 		$aloneX = 0;
 		$aloneY = 0;
 		$alonePawnsSize = count($alonePawns);
-
+		$pawnsCanMove = array();
 		for($i = 0; $i <= $alonePawnsSize-1 ; $i++) {
 			$aloneX = $alonePawns[$i]['x'];
 			$aloneY = $alonePawns[$i]['y'];
 			// horizontal movement
+			$pawnsCanMove[] = $this->allowedHorizontalMovementAlone($aloneX, $aloneY);
+			//vertical movement
+			$pawnsCanMove[] = $this->allowedVerticalMovementAlone($aloneX, $aloneY);
+			//diagonal movement
+			$pawnsCanMove[] = $this->allowedDiagonalMovementAlone($saloneX, $aloneY);
 		}
+		return $pawnsCanMove;
 	}
 
 	public function allowedHorizontalMovementAlone($x, $y) {
@@ -418,7 +424,7 @@ class Game {
 				}
 			}
 			if($x-1 != $tmpX){
-				$allowed = array('x' => $x-1, 'y' => $y);
+				$allowed = array('xSrc' => $x-1, 'ySrc' => $y, 'xDest' => $tmpX+1, 'yDest' => $y);
 			}
 		} elseif($x == 4) {
 			// 4- : checking on the left side
@@ -436,7 +442,7 @@ class Game {
 				}
 			}
 			if($x+1 != $tmpX) {
-				$allowed = array('x' => $x+1, 'y' => $y);
+				$allowed = array('xSrc' => $x+1, 'ySrc' => $y, 'xDest' => $tmpX - 1, 'yDest' => $y);
 			}
 		} elseif($x > 0 || $x < 4) {
 			// 0 < x < 4
@@ -457,7 +463,7 @@ class Game {
 				}
 			}
 			if($right-1 != $tmpX) {
-				$allowed = array('x' => $right-1, 'y' => $y);
+				$allowed = array('xSrc' => $right-1, 'ySrc' => $y, 'xDest' => $tmpX+1, 'yDest' => $y);
 			}
 
 			// checking on the left side
@@ -474,7 +480,7 @@ class Game {
 				}
 			}
 			if($left+1 != $tmpX){
-				$allowed = array('x' => $left+1, 'y' => $y);
+				$allowed = array('xSrc' => $left+1, 'ySrc' => $y, 'xDest' => $tmpX-1,'yDest' => $y);
 			}
 		}
 		return $allowed;
@@ -501,7 +507,7 @@ class Game {
 				}
 			}
 			if($tmpY != $y-1) {
-				$allowed = array('x' => $x, 'y' => $y-1);
+				$allowed = array('xSrc' => $x, 'ySrc' => $y-1, 'xDest' => $x, 'yDest' => $tmpY+1);
 			}
 		} elseif($y == 4) {
 			// 4- : checking on the bottom side
@@ -519,7 +525,7 @@ class Game {
 				}
 			}
 			if($tmpY != $y+1){
-				$allowed = array('x' => $x, 'y' => $y+1);
+				$allowed = array('xSrc' => $x, 'ySrc' => $y+1, 'xDest' => $x, 'yDest' => $tmpY - 1);
 			}
 		} elseif($y > 0 || $y < 4) {
 			// 0 < y < 4
@@ -540,7 +546,7 @@ class Game {
 				}
 			}
 			if($tmpY != $top -1) {
-				$allowed = array('x' => $x, 'y' => $top-1);
+				$allowed = array('xSrc' => $x, 'ySrc' => $top-1, 'xDest' => $x, 'yDest' => $tmpY + 1);
 			}
 
 			// checking on the bottom side
@@ -557,7 +563,7 @@ class Game {
 				}
 			}
 			if($tmpY != $bottom+1) {
-				$allowed = array('x' => $x, 'y' => $bottom+1);
+				$allowed = array('xSrc' => $x, 'ySrc' => $bottom+1, 'xDest' => $x, 'yDest' => $tmpY - 1);
 			}
 		}
 		return $allowed;
@@ -576,8 +582,10 @@ class Game {
 			}
 			if(($cptX+1 != $x) || ($cptY-1 != $y)) {
 				$allowedMoves['bottomLeft'] = array(
-					'x' => $cptX+1,
-					'y' => $cptY-1
+					'xSrc' => $cptX+1,
+					'ySrc' => $cptY-1,
+					'xDest' => $x-1,
+					'yDest' => $y+1
 				);
 			}
 		}
@@ -592,8 +600,10 @@ class Game {
 			}
 			if(($cptX-1 != $x) || ($cptY+1 != $y)) {
 				$allowedMoves['topRight'] = array(
-					'x' => $cptX-1,
-					'y' => $cptY+1
+					'xSrc' => $cptX-1,
+					'ySrc' => $cptY+1,
+					'xDest' => $x+1,
+					'yDest' => $y-1
 				);
 			}
 		}
@@ -608,8 +618,10 @@ class Game {
 			}
 			if(($cptX-1 != $x) || ($cptY-1 != $y)) {
 				$allowedMoves['bottomRight'] = array(
-					'x' => $cptX-1,
-					'y' => $cptY-1
+					'xSrc' => $cptX-1,
+					'ySrc' => $cptY-1,
+					'xDest' => $x+1,
+					'yDest' => $y+1
 				);
 			}
 		}
@@ -624,8 +636,10 @@ class Game {
 			}
 			if(($cptX+1 != $x) || ($cptY+1 != $y)) {
 				$allowedMoves['topLeft'] = array(
-					'x' => $cptX+1,
-					'y' => $cptY+1
+					'xSrc' => $cptX+1,
+					'ySrc' => $cptY+1,
+					'xDest' => $x-1,
+					'yDest' => $y-1
 				);
 			}
 		}
