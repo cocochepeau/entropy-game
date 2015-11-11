@@ -759,7 +759,7 @@ class Game {
 				$this->playerTwo();
 			}
 		}
-		return false;
+		return null;
 	}
 
 	public function drawBoard() {
