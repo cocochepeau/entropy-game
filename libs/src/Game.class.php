@@ -670,76 +670,87 @@ class Game {
 
 		if($x == 4) {
 			if($y == 4) {
-				if($this->board[$y-1][$x]->getColor() != $pawnColor
-					|| $this->board[$y][$x-1]->getColor() != $pawnColor
-					|| $this->board[$y-1][$x-1]->getColor() != $pawnColor) {
+				if(!$this->isFriend($y-1, $x, $pawnColor)
+					|| !$this->isFriend($y, $x-1, $pawnColor)
+					|| !$this->isFriend($y-1, $x-1, $pawnColor)) {
 					return true;
 				}
 			} elseif ($y == 0) {
-				if($this->board[$y+1][$x]->getColor() != $pawnColor
-					|| $this->board[$y][$x-1]->getColor() != $pawnColor
-					|| $this->board[$y+1][$x-1]->getColor() != $pawnColor) {
+				if(!$this->isFriend($y+1, $x, $pawnColor)
+					|| !$this->isFriend($y, $x-1, $pawnColor)
+					|| !$this->isFriend($y+1, $x-1, $pawnColor)) {
 					return true;
 				}
 			} else {
 				// to finish
-				if($this->board[$y+1][$x]->getColor() != $pawnColor
-					|| $this->board[$y][$x-1]->getColor() != $pawnColor
-					|| $this->board[$y+1][$x-1]->getColor() != $pawnColor
-					|| $this->board[$y-1][$x-1]->getColor() != $pawnColor) {
+				if(!$this->isFriend($y+1, $x, $pawnColor)
+					|| !$this->isFriend($y, $x-1, $pawnColor)
+					|| !$this->isFriend($y+1, $x-1, $pawnColor)
+					|| !$this->isFriend($y-1,$x-1, $pawnColor)) {
 					return true;
 				}
 			}
 		} elseif ($x == 0) {
 			if($y == 4) {
-				if($this->board[$y-1][$x]->getColor() != $pawnColor
-					|| $this->board[$y][$x+1]->getColor() != $pawnColor
-					|| $this->board[$y-1][$x+1]->getColor() != $pawnColor) {
+				if(!$this->isFriend($y-1, $x, $pawnColor)
+					|| !$this->isFriend($y, $x+1, $pawnColor)
+					|| !$this->isFriend($y-1, $x+1, $pawnColor)) {
 					return true;
 				}
 			} elseif ($y == 0) {
-				if($this->board[$y+1][$x]->getColor() != $pawnColor
-					|| $this->board[$y][$x+1]->getColor() != $pawnColor
-					|| $this->board[$x+1][$y+1]->getColor() != $pawnColor) {
+				if(!$this->isFriend($y+1, $x, $pawnColor)
+					|| !$this->isFriend($y, $x+1, $pawnColor)
+					|| !$this->isFriend($x+1, $y+1, $pawnColor)) {
 					return true;
 				}
 			} else{
 				// to finish
-				if($this->board[$y+1][$x]->getColor() != $pawnColor
-					|| $this->board[$y][$x+1]->getColor() != $pawnColor
-					|| $this->board[$y+1][$x+1]->getColor() != $pawnColor
-					|| $this->board[$y-1][$x+1]->getColor() != $pawnColor) {
+				if(!$this->isFriend($y+1, $x, $pawnColor)
+					|| !$this->isFriend($y, $x+1, $pawnColor)
+					|| !$this->isFriend($y+1, $x+1, $pawnColor)
+					|| !$this->isFriend($y-1, $x+1, $pawnColor)) {
 					return true;
 				}
 			}
 		} elseif($y == 4) {
-			if($this->board[$y-1][$x]->getColor() != null != $pawnColor 
-				|| $this->board[$y][$x+1]->getColor() != $pawnColor
-				|| $this->board[$y-1][$x+1]->getColor() != $pawnColor
-				|| $this->board[$y][$x-1]->getColor() != $pawnColor) {
+			if(!$this->isFriend($y-1, $x, $pawnColor)
+				|| !$this->isFriend($y, $x+1, $pawnColor)
+				|| !$this->isFriend($y-1, $x+1, $pawnColor)
+				|| !$this->isFriend($y, $x-1, $pawnColor)) {
 				return true;
 			}
 		} elseif ($y == 0) {
-			if($this->board[$y+1][$x]->getColor() != $pawnColor
-				|| $this->board[$y][$x+1]->getColor() != $pawnColor
-				|| $this->board[$y+1][$x+1]->getColor() != $pawnColor
-				|| $this->board[$y][$x-1]->getColor() != $pawnColor
-				|| $this->board[$y+1][$x-1]->getColor() != $pawnColor) {
+			if(!$this->isFriend($y+1, $x, $pawnColor)
+				|| !$this->isFriend($y, $x+1, $pawnColor)
+				|| !$this->isFriend($y+1, $x+1, $pawnColor)
+				|| !$this->isFriend($y, $x-1, $pawnColor)
+				|| !$this->isFriend($y+1, $x-1, $pawnColor)) {
 				return true;
 			}
 		} else {
-			if($this->board[$y+1][$x]->getColor() != $pawnColor
-				|| $this->board[$y][$x+1]->getColor() != $pawnColor
-				|| $this->board[$y+1][$x+1]->getColor() != $pawnColor
-				|| $this->board[$y-1][$x+1]->getColor() != $pawnColor
-				|| $this->board[$y-1][$x-1]->getColor() != $pawnColor
-				|| $this->board[$y-1][$x]->getColor() != $pawnColor
-				|| $this->board[$y][$x-1]->getColor() != $pawnColor
-				|| $this->board[$y-1][$x-1]->getColor() != $pawnColor) {
+			if(!$this->isFriend($y+1, $x, $pawnColor)
+				|| !$this->isFriend($y, $x+1, $pawnColor)
+				|| !$this->isFriend($y+1, $x+1, $pawnColor)
+				|| !$this->isFriend($y-1, $x+1, $pawnColor)
+				|| !$this->isFriend($y-1, $x-1, $pawnColor)
+				|| !$this->isFriend($y-1, $x, $pawnColor)
+				|| !$this->isFriend($y, $x-1, $pawnColor)
+				|| !$this->isFriend($y-1, $x-1, $pawnColor)) {
 				return true;
 			}
 		}
 		return false;
+	}
+
+	public function isFriend($y, $x, $color) {
+		if($this->board[$y][$x] != null) {
+			// color
+			if($this->board[$y][$x]->getColor() == $color) {
+				// hello my friend !
+				return true;
+			}
+		}
+		return false; // pawn is not a friend
 	}
 
 	public function scanBlocked() {
