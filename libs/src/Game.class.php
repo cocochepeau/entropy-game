@@ -749,6 +749,8 @@ class Game {
 				// hello my friend !
 				return true;
 			}
+		}else{
+			return true;  // because null === it's not a pawn so it's not a danger Skyler, I'M THE DANGER!
 		}
 		return false; // pawn is not a friend
 	}
