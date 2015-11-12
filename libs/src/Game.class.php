@@ -75,9 +75,9 @@ class Game {
 
 				// looking for blocked pawn
 				if(empty($moves['horizontal']) && empty($moves['vertical'])	&& empty($moves['diagonal'])) {
-					if($this->board[$x][$y] != null) {
-						array_push($this->staticPawns, array('x' => $x, 'y' => $y));
-					}
+					// if($this->board[$x][$y] != null) {
+						// array_push($this->staticPawns, array('x' => $x, 'y' => $y));
+					// }
 				} else {
 					// player can move pawn
 				}
@@ -770,7 +770,8 @@ class Game {
 		if($count >= 5) {
 			$yellow = 0;
 			$blue = 0;
-			foreach($this->staticPawns as $pawn) {
+			foreach($this->staticPawns as $pawnCoord) {
+				$pawn = $this->board[$pawnCoord['y']][$pawnCoord['x']];
 				if($pawn->getColor() == 'yellow') {
 					$yellow++;
 				} else {
@@ -780,9 +781,9 @@ class Game {
 
 			// do we have a winner ?
 			if($yellow >= 5) {
-				return $this->playerOne();
+				return $this->playerOne;
 			} elseif($blue >= 5) {
-				return $this->playerTwo();
+				return $this->playerTwo;
 			}
 		}
 		return null;
@@ -805,14 +806,12 @@ class Game {
 					}
 				} else {
 					// moves
-					if(
-						$this->allowedMoves['horizontal']['x'] == $x && $this->allowedMoves['horizontal']['y'] == $y
+					if($this->allowedMoves['horizontal']['x'] == $x && $this->allowedMoves['horizontal']['y'] == $y
 						|| $this->allowedMoves['vertical']['x'] == $x && $this->allowedMoves['vertical']['y'] == $y
 						|| $this->allowedMoves['diagonal']['topLeft']['x'] == $x && $this->allowedMoves['diagonal']['topLeft']['y'] == $y
 						|| $this->allowedMoves['diagonal']['topRight']['x'] == $x && $this->allowedMoves['diagonal']['topRight']['y'] == $y
 						|| $this->allowedMoves['diagonal']['bottomLeft']['x'] == $x && $this->allowedMoves['diagonal']['bottomLeft']['y'] == $y
-						|| $this->allowedMoves['diagonal']['bottomRight']['x'] == $x && $this->allowedMoves['diagonal']['bottomRight']['y'] == $y
-					) {
+						|| $this->allowedMoves['diagonal']['bottomRight']['x'] == $x && $this->allowedMoves['diagonal']['bottomRight']['y'] == $y) {
 						$render .= '<td><div class="box"><a href="'.ROOT.'/index.php?move&srcX='.$this->srcX.'&srcY='.$this->srcY.'&destX='.$x.'&destY='.$y.'" class="pawn movable"></a>'.$debug.'</div></td>';
 					} else {
 						$render .= '<td><div class="box">'.$debug.'</div></td>';
