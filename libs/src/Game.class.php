@@ -773,7 +773,6 @@ class Game {
 				}
 			}
 		}
-		var_dump($this->staticPawns);
 	}
 
 	public function endGame() {
@@ -808,12 +807,19 @@ class Game {
 			$x = 0;
 			$render .= '<tr>';
 			foreach($row as $col) {
-				$debug = '<span class="coordinates">'.$x.','.$y.'</span>';
 				if($col != null) {
-					if($col->getPlayer()->getNumPlayer() == $this->whichTurn) {
-						$render .= '<td><div class="box"><a href="'.ROOT.'/index.php?select&p='.$col->getPlayer()->getNumPlayer().'&x='.$x.'&y='.$y.'" class="pawn '.$col->getColor().' playable"></a>'.$debug.'</div></td>';
-					} else {
-						$render .= '<td><div class="box"><a href="'.ROOT.'/index.php?select&p='.$col->getPlayer()->getNumPlayer().'&x='.$x.'&y='.$y.'" class="pawn '.$col->getColor().'"></a>'.$debug.'</div></td>';
+					// Yaay we found a pawn ! Let's display it.
+					$isBlocked = false;
+					foreach($this->staticPawns as $pawnCoord) {
+						if($pawnCoord['x'] == $x && $pawnCoord['y'] == $y) {
+							$render .= '<td><div class="box"><a href="#" class="pawn '.$col->getColor().' blocked"></a>';
+							$isBlocked = true;
+						}
+					}
+					if(!$isBlocked) {
+						$playable = ($col->getPlayer()->getNumPlayer() == $this->whichTurn) ? 'playable' : '';
+						$href = (!$this->endGame()) ? ROOT.'/index.php?select&p='.$col->getPlayer()->getNumPlayer().'&x='.$x.'&y='.$y : '#';
+						$render .= '<td><div class="box"><a href="'.$href.'" class="pawn '.$col->getColor().' '.$playable.'"></a>';
 					}
 				} else {
 					// moves
@@ -823,11 +829,17 @@ class Game {
 						|| $this->allowedMoves['diagonal']['topRight']['x'] == $x && $this->allowedMoves['diagonal']['topRight']['y'] == $y
 						|| $this->allowedMoves['diagonal']['bottomLeft']['x'] == $x && $this->allowedMoves['diagonal']['bottomLeft']['y'] == $y
 						|| $this->allowedMoves['diagonal']['bottomRight']['x'] == $x && $this->allowedMoves['diagonal']['bottomRight']['y'] == $y) {
-						$render .= '<td><div class="box"><a href="'.ROOT.'/index.php?move&srcX='.$this->srcX.'&srcY='.$this->srcY.'&destX='.$x.'&destY='.$y.'" class="pawn movable"></a>'.$debug.'</div></td>';
+							$href = (!$this->endGame()) ? ROOT.'/index.php?move&srcX='.$this->srcX.'&srcY='.$this->srcY.'&destX='.$x.'&destY='.$y : '#';
+							$render .= '<td><div class="box"><a href="'.$href.'" class="pawn movable"></a>';
 					} else {
-						$render .= '<td><div class="box">'.$debug.'</div></td>';
+						// nothing to display...
+						$render .= '<td><div class="box">';
 					}
 				}
+
+				// debug
+				$render .= '<span class="coordinates">'.$x.','.$y.'</span></div></td>';
+
 				$x++;
 			}
 			$render .= '</tr>';

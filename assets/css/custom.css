@@ -167,6 +167,10 @@ textarea:focus {
 	border-style: dashed !important;
 }
 
+.blocked {
+	border-color: red;
+}
+
 /* mgr */
 .mgr {
 	margin-bottom: 20px;
