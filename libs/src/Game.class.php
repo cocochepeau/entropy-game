@@ -763,6 +763,7 @@ class Game {
 				}
 			}
 		}
+		var_dump($this->staticPawns);
 	}
 
 	public function endGame() {
