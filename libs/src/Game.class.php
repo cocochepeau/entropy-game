@@ -671,71 +671,71 @@ class Game {
 		if($x == 4) {
 			if($y == 4) {
 				if(!$this->isFriend($y-1, $x, $pawnColor)
-					|| !$this->isFriend($y, $x-1, $pawnColor)
-					|| !$this->isFriend($y-1, $x-1, $pawnColor)) {
+					&& !$this->isFriend($y, $x-1, $pawnColor)
+					&& !$this->isFriend($y-1, $x-1, $pawnColor)) {
 					return true;
 				}
 			} elseif ($y == 0) {
 				if(!$this->isFriend($y+1, $x, $pawnColor)
-					|| !$this->isFriend($y, $x-1, $pawnColor)
-					|| !$this->isFriend($y+1, $x-1, $pawnColor)) {
+					&& !$this->isFriend($y, $x-1, $pawnColor)
+					&& !$this->isFriend($y+1, $x-1, $pawnColor)) {
 					return true;
 				}
 			} else {
 				// to finish
 				if(!$this->isFriend($y+1, $x, $pawnColor)
-					|| !$this->isFriend($y, $x-1, $pawnColor)
-					|| !$this->isFriend($y+1, $x-1, $pawnColor)
-					|| !$this->isFriend($y-1,$x-1, $pawnColor)) {
+					&& !$this->isFriend($y, $x-1, $pawnColor)
+					&& !$this->isFriend($y+1, $x-1, $pawnColor)
+					&& !$this->isFriend($y-1,$x-1, $pawnColor)) {
 					return true;
 				}
 			}
 		} elseif ($x == 0) {
 			if($y == 4) {
 				if(!$this->isFriend($y-1, $x, $pawnColor)
-					|| !$this->isFriend($y, $x+1, $pawnColor)
-					|| !$this->isFriend($y-1, $x+1, $pawnColor)) {
+					&& !$this->isFriend($y, $x+1, $pawnColor)
+					&& !$this->isFriend($y-1, $x+1, $pawnColor)) {
 					return true;
 				}
 			} elseif ($y == 0) {
 				if(!$this->isFriend($y+1, $x, $pawnColor)
-					|| !$this->isFriend($y, $x+1, $pawnColor)
-					|| !$this->isFriend($x+1, $y+1, $pawnColor)) {
+					&& !$this->isFriend($y, $x+1, $pawnColor)
+					&& !$this->isFriend($x+1, $y+1, $pawnColor)) {
 					return true;
 				}
-			} else{
+			} else {
 				// to finish
 				if(!$this->isFriend($y+1, $x, $pawnColor)
-					|| !$this->isFriend($y, $x+1, $pawnColor)
-					|| !$this->isFriend($y+1, $x+1, $pawnColor)
-					|| !$this->isFriend($y-1, $x+1, $pawnColor)) {
+					&& !$this->isFriend($y, $x+1, $pawnColor)
+					&& !$this->isFriend($y+1, $x+1, $pawnColor)
+					&& !$this->isFriend($y-1, $x+1, $pawnColor)) {
 					return true;
 				}
 			}
 		} elseif($y == 4) {
 			if(!$this->isFriend($y-1, $x, $pawnColor)
-				|| !$this->isFriend($y, $x+1, $pawnColor)
-				|| !$this->isFriend($y-1, $x+1, $pawnColor)
-				|| !$this->isFriend($y, $x-1, $pawnColor)) {
+				&& !$this->isFriend($y, $x+1, $pawnColor)
+				&& !$this->isFriend($y-1, $x+1, $pawnColor)
+				&& !$this->isFriend($y, $x-1, $pawnColor)) {
 				return true;
 			}
 		} elseif ($y == 0) {
 			if(!$this->isFriend($y+1, $x, $pawnColor)
-				|| !$this->isFriend($y, $x+1, $pawnColor)
-				|| !$this->isFriend($y+1, $x+1, $pawnColor)
-				|| !$this->isFriend($y, $x-1, $pawnColor)
-				|| !$this->isFriend($y+1, $x-1, $pawnColor)) {
+				&& !$this->isFriend($y, $x+1, $pawnColor)
+				&& !$this->isFriend($y+1, $x+1, $pawnColor)
+				&& !$this->isFriend($y, $x-1, $pawnColor)
+				&& !$this->isFriend($y+1, $x-1, $pawnColor)) {
 				return true;
 			}
 		} else {
 			if(!$this->isFriend($y+1, $x, $pawnColor)
-				|| !$this->isFriend($y, $x+1, $pawnColor)
-				|| !$this->isFriend($y+1, $x+1, $pawnColor)
-				|| !$this->isFriend($y-1, $x+1, $pawnColor)
-				|| !$this->isFriend($y-1, $x-1, $pawnColor)
-				|| !$this->isFriend($y-1, $x, $pawnColor)
-				|| !$this->isFriend($y, $x-1, $pawnColor)
-				|| !$this->isFriend($y-1, $x-1, $pawnColor)) {
+				&& !$this->isFriend($y, $x+1, $pawnColor)
+				&& !$this->isFriend($y-1, $x, $pawnColor)
+				&& !$this->isFriend($y, $x-1, $pawnColor)
+				&& !$this->isFriend($y-1, $x+1, $pawnColor)
+				&& !$this->isFriend($y+1, $x-1, $pawnColor)
+				&& !$this->isFriend($y+1, $x+1, $pawnColor)
+				&& !$this->isFriend($y-1, $x-1, $pawnColor)) {
 				return true;
 			}
 		}
@@ -749,13 +749,13 @@ class Game {
 				// hello my friend !
 				return true;
 			}
-		}else{
-			return true;  // because null === it's not a pawn so it's not a danger Skyler, I'M THE DANGER!
 		}
 		return false; // pawn is not a friend
 	}
 
 	public function scanBlocked() {
+		$this->staticPawns = array();
+
 		for($y = 0; $y <=4; $y++) {
 			for($x = 0; $x <= 4; $x++) {
 				if($this->board[$y][$x] != null) {
