@@ -689,7 +689,8 @@ class Game {
 				if(!$this->isFriend($y+1, $x, $pawnColor)
 					&& !$this->isFriend($y, $x-1, $pawnColor)
 					&& !$this->isFriend($y+1, $x-1, $pawnColor)
-					&& !$this->isFriend($y-1,$x-1, $pawnColor)) {
+					&& !$this->isFriend($y-1,$x-1, $pawnColor)
+					&& !$this->isFriend($x, $y-1, $pawnColor)) {
 					return true;
 				}
 			}
@@ -711,7 +712,8 @@ class Game {
 				if(!$this->isFriend($y+1, $x, $pawnColor)
 					&& !$this->isFriend($y, $x+1, $pawnColor)
 					&& !$this->isFriend($y+1, $x+1, $pawnColor)
-					&& !$this->isFriend($y-1, $x+1, $pawnColor)) {
+					&& !$this->isFriend($y-1, $x+1, $pawnColor)
+					&& ! $this->isFriend($y-1, $x, $pawnColor)) {
 					return true;
 				}
 			}
@@ -719,15 +721,16 @@ class Game {
 			if(!$this->isFriend($y-1, $x, $pawnColor)
 				&& !$this->isFriend($y, $x+1, $pawnColor)
 				&& !$this->isFriend($y-1, $x+1, $pawnColor)
-				&& !$this->isFriend($y, $x-1, $pawnColor)) {
+				&& !$this->isFriend($y, $x-1, $pawnColor)
+				&& !$this->isFriend($x-1, $y-1, $pawnColor)) {
 				return true;
 			}
 		} elseif ($y == 0) {
-			if(!$this->isFriend($y+1, $x, $pawnColor)
+			if(!$this->isFriend($y+1, $x, $pawnColor)  
 				&& !$this->isFriend($y, $x+1, $pawnColor)
 				&& !$this->isFriend($y+1, $x+1, $pawnColor)
 				&& !$this->isFriend($y, $x-1, $pawnColor)
-				&& !$this->isFriend($y+1, $x-1, $pawnColor)) {
+				&& !$this->isFriend($y+1, $x-1, $pawnColor)){
 				return true;
 			}
 		} else {
@@ -746,13 +749,15 @@ class Game {
 	}
 
 	public function isFriend($y, $x, $color) {
+		//return an int, because we've tested with a boolean return but it's not enougth
+		//0: false,  1: true,  3: box is empty
 		if($this->board[$y][$x] != null) {
 			// color
 			if($this->board[$y][$x]->getColor() == $color) {
 				// hello my friend !
 				return true;
 			}
-		}
+		} 
 		return false; // pawn is not a friend
 	}
 
