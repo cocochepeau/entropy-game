@@ -90,7 +90,7 @@ class Game {
 	}
 
 	public function move($srcX, $srcY, $destX, $destY) {
-		// todo: check if movements are allowed for security
+		// todo: check if movements are allowed for security. Is that it ? see after -->
 		if(!empty($this->allowedMoves)) {
 			$allowed = true;
 		} else {
@@ -104,6 +104,9 @@ class Game {
 
 			// clean up allowed moves
 			$this->allowedMoves = array();
+
+			// re-scan for blocked pawns since we might have moved one of them.
+			$this->scanBlocked();
 
 			// switch turn
 			if($this->whichTurn == 1) {
