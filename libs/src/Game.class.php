@@ -306,10 +306,22 @@ class Game {
 		if($this->board[$y][$x] && $this->board[$y][$x] != null) {
 			$player = $this->board[$y][$x]->getPlayer();
 			return (
+				// top
 				!$this->isPlayerPawn($x, $y-1, $player)
+				// right
 				&& !$this->isPlayerPawn($x+1, $y, $player)
+				// bottom
 				&& !$this->isPlayerPawn($x, $y+1, $player)
+				// left
 				&& !$this->isPlayerPawn($x-1, $y, $player)
+				// topLeft
+				&& !$this->isPlayerPawn($x-1, $y-1, $player)
+				// topRight
+				&& !$this->isPlayerPawn($x+1, $y-1, $player)
+				// bottomRight
+				&& !$this->isPlayerPawn($x+1, $y+1, $player)
+				// bottomLeft
+				&& !$this->isPlayerPawn($x-1, $y+1, $player)
 			);
 		}
 		return false;
