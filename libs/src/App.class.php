@@ -23,18 +23,19 @@ class App {
 		// if game is being played right now...
 		if($this->game != null) { // instanceOf Game
 
-			// todo: isAlone()
+			// looking for isolated & blocked pawns
+			$this->game->scanPawns();
 
-			$this->game->scanBlocked();
-
+			// do you want to select a pawn in order to move it ?
 			if(isset($_GET['select'])) {
-				$this->game->possibleMovement(
+				$this->game->availableMovements(
 					$_GET['x'],
 					$_GET['y'],
 					$_GET['p']
 				);
 			}
 
+			// let's move it move it !
 			if(isset($_GET['move'])) {
 				$this->game->move(
 					$_GET['srcX'],
