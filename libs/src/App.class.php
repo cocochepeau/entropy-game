@@ -21,20 +21,21 @@ class App {
 		$this->retrieveGame();
 
 		// if game is being played right now...
-		if($this->game instanceOf Game) {
+		if($this->game != null) { // instanceOf Game
 
-			// todo: isAlone()
-			// todo: isBlocked()
+			// looking for isolated & blocked pawns
+			$this->game->scanPawns();
 
+			// do you want to select a pawn in order to move it ?
 			if(isset($_GET['select'])) {
-				$this->game->possibleMovement(
+				$this->game->availableMovements(
 					$_GET['x'],
 					$_GET['y'],
 					$_GET['p']
 				);
 			}
 
-
+			// let's move it move it !
 			if(isset($_GET['move'])) {
 				$this->game->move(
 					$_GET['srcX'],
@@ -63,7 +64,7 @@ class App {
 	}
 
 	public function getGame() {
-		if($this->game instanceOf Game) {
+		if($this->game != null) { // instanceOf Game
 			return $this->game;
 		}
 		return false;
@@ -71,7 +72,6 @@ class App {
 
 	public function retrieveGame() {
 		$game = Session::get('game');
-		$game = $_SESSION['game'];
 		if($game) {
 			$this->game = $game;
 			return true;

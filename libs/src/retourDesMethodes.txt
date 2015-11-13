@@ -1,0 +1,18 @@
+Pour les mouvements possible vers les pions seuls:
+
+- Horizontal et vertical:
+
+tab['xDest'] => coordonnée X de la case de destination (qui est autour du pion esseulé)
+tab['yDest'] => coordonnée Y de la case de destination (qui est autour du pion esseulé)
+tab['xSrc'] => coordonnée X du pion qui peut se déplacer vers le pion seul
+tab['ySrc'] => coordonnée Y du pion qui peut se déplacer vers le pion seul
+
+
+- Pour les diagonales:
+
+le tableau est en 2 dimensions:
+
+tab[A][B]
+
+avec A : {'bottomLeft', 'topRight', 'bottomRight', 'topLeft'}
+et B: {'xSrc', 'ySrc', 'xDest', 'yDest'}

@@ -1,20 +1,20 @@
 <?php
 class Player {
 
-	private $numPlayer;		
-	private $namePlayer;
+	private $number;		
+	private $name;
 
-	public function __construct($num, $name) {
-		$this->numPlayer = $num;
-		$this->namePlayer = $name;
+	public function __construct($number, $name) {
+		$this->number = $number;
+		$this->name = $name;
 	}
 
-	public function getNumPlayer() {
-		return $this->numPlayer;
+	public function getNumber() {
+		return $this->number;
 	}
 
-	public function getNamePlayer() {
-		return $this->namePlayer;
+	public function getName() {
+		return $this->name;
 	}
 
 }

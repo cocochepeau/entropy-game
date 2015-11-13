@@ -8,23 +8,27 @@
 		<link rel="stylesheet" type="text/css" href="<?= ROOT; ?>/assets/css/custom.css">
 	</head>
 	<body>
-		<a href="#toggleDebug"class="toggle-debug">Toggle debug</a>
-		<div class="debug">
-			<?php Messages::render('response'); ?>
-			<a href="#toggleDebug"class="toggle-debug" title="Click to hide"></a>
-		</div>
 		<div class="wrapper">
 			<h1 class="brand">Entropy Game</h1>
 			<?php
-			if($game)
-			{
+			if($game) {
+				$winner = $game->endGame();
+				if($winner) {
+					?>
+					<div class="mgr">
+						<h3>Nous avons un gagnant !</h3>
+						<p>Il s'agit de <?= $winner->getName(); ?></p>
+					</div>
+					<?php
+				}
 				?>
 				<div class="board">
 					<?php $game->drawBoard(); ?>
 				</div>
 				<div class="mgr">
-					<h3 class="pn pn-one"><?= htmlentities($game->getPlayerOne()->getNamePlayer(), HE_FLAGS, CHARSET); ?></h3>
-					<h3 class="pn pn-two"><?= htmlentities($game->getPlayerTwo()->getNamePlayer(), HE_FLAGS, CHARSET); ?></h3>
+					<?php Messages::render(); ?>
+					<h3 class="pn pn-one"><?= htmlentities($game->getPlayerOne()->getName(), HE_FLAGS, CHARSET); ?></h3>
+					<h3 class="pn pn-two"><?= htmlentities($game->getPlayerTwo()->getName(), HE_FLAGS, CHARSET); ?></h3>
 					<form action="<?= ROOT; ?>/index.php" method="post">
 						<button class="btn btn-block" type="submit" name="restart">Relancer</button>
 					</form>
@@ -53,8 +57,5 @@
 			}
 			?>
 		</div>
-		<script src="<?= ROOT; ?>/assets/js/jquery-1.11.3.min.js"></script>
-		<script async src="<?= ROOT; ?>/assets/js/custom.js"></script>
-		<script src="<?= ROOT; ?>/assets/js/jquery.cookie-1.4.1.min.js"></script>
 	</body>
 </html>
