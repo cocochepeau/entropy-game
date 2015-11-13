@@ -26,6 +26,7 @@
 					<?php $game->drawBoard(); ?>
 				</div>
 				<div class="mgr">
+					<?php Messages::render(); ?>
 					<h3 class="pn pn-one"><?= htmlentities($game->getPlayerOne()->getName(), HE_FLAGS, CHARSET); ?></h3>
 					<h3 class="pn pn-two"><?= htmlentities($game->getPlayerTwo()->getName(), HE_FLAGS, CHARSET); ?></h3>
 					<form action="<?= ROOT; ?>/index.php" method="post">
@@ -38,7 +39,6 @@
 			{
 				?>
 				<div class="mgr">
-					<?php Messages::render(); ?>
 					<form action="<?= ROOT; ?>/index.php" method="post" accept-charset="UTF-8">
 						<div class="form-control">
 							<label for="playerOne">Joueur 1</label>

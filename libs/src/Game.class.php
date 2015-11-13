@@ -74,7 +74,7 @@ class Game {
 				$this->verticalMovements($x, $y);
 				$this->diagonalMovements($x, $y);
 			} else {
-				Messages::add('response', "That's NOT your turn, dummy !" . PHP_EOL);
+				Messages::add("That's NOT your turn, dummy !");
 			}
 		}
 		return false;
@@ -102,7 +102,7 @@ class Game {
 				}
 				return true;
 			} else {
-				Messages::add('response', "Go get some fair play, cheater !" . PHP_EOL);
+				Messages::add("Go get some fair play, cheater !");
 			}
 		}
 		return false;
