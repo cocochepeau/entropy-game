@@ -142,6 +142,8 @@ textarea:focus {
 	border-color: red;
 }
 
+.alone {}
+
 /* mgr */
 .mgr {
 	margin-bottom: 20px;
