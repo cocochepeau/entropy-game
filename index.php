@@ -4,8 +4,8 @@
 	<head>
 		<meta charset="<?= CHARSET; ?>">
 		<title>Entropy Game</title>
-		<link rel="stylesheet" type="text/css" href="<?= ROOT; ?>/assets/css/normalize.css">
-		<link rel="stylesheet" type="text/css" href="<?= ROOT; ?>/assets/css/custom.css">
+		<link rel="stylesheet" type="text/css" href="assets/css/normalize.css">
+		<link rel="stylesheet" type="text/css" href="assets/css/custom.css">
 	</head>
 	<body>
 		<div class="wrapper">
@@ -32,7 +32,7 @@
 						<h3 class="pn pn-two"><?= htmlentities($game->getPlayerTwo()->getName(), HE_FLAGS, CHARSET); ?></h3>
 					</div>
 					<div class="mgr-right">
-						<form action="<?= ROOT; ?>/index.php" method="post">
+						<form action="index.php" method="post">
 							<button class="btn btn-block" type="submit" name="restart">Relancer</button>
 							<?php
 							if($game->previousMovement()) {
@@ -48,7 +48,7 @@
 			{
 				?>
 				<div class="mgr">
-					<form action="<?= ROOT; ?>/index.php" method="post" accept-charset="UTF-8">
+					<form action="index.php" method="post" accept-charset="UTF-8">
 						<div class="form-control">
 							<label for="playerOne">Joueur 1</label>
 							<input type="text" name="playerOne" id="playerOne" required>
