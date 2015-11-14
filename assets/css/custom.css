@@ -9,6 +9,20 @@
 	font-style: normal;
 }
 
+html {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+	-webkit-box-sizing: inherit;
+	-moz-box-sizing: inherit;
+	box-sizing: inherit;
+}
+
 body {
 	height: 100%;
 	font-family: 'silkscreenbold', Verdana, Arial, sans-serif;
@@ -69,8 +83,8 @@ textarea:focus {
 }
 
 .wrapper {
-	display: table;
 	margin: 0 auto;
+	width: 700px;
 }
 
 /* board */
@@ -134,13 +148,11 @@ textarea:focus {
 	border-color: green;
 }
 
-.movable {
-	border-style: dashed !important;
-}
-
 .blocked {
 	border-color: red;
 }
+
+.movable {}
 
 .alone {}
 
@@ -149,6 +161,8 @@ textarea:focus {
 	margin-bottom: 20px;
 	padding: 16px;
 	background-color: #F4F4F4;
+	float: left;
+	width: 100%;
 }
 
 .mgr > h3:first-child {
@@ -165,4 +179,15 @@ textarea:focus {
 
 .pn-two {
 	color: #99C4EC;
+}
+
+.mgr-left {
+	float: left;
+	width: 50%;
+	padding-right: 20px;
+}
+
+.mgr-right {
+	float: right;
+	width: 50%;
 }

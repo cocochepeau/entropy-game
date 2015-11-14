@@ -26,6 +26,11 @@ class App {
 			// looking for isolated & blocked pawns
 			$this->game->scanPawns();
 
+			// want to cancel your move ?
+			if(isset($_POST['previous'])) {
+				$this->game->cancelMove();
+			}
+
 			// do you want to select a pawn in order to move it ?
 			if(isset($_GET['select'])) {
 				$this->game->availableMovements(

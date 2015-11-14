@@ -15,6 +15,11 @@ class Game {
 	private $srcY;
 
 	/*
+	 * Store previous movement
+	 */
+	private $prevMovement = array();
+
+	/*
 	 * An array of available movements (horizontal,
 	 * vertical, diagonal).
 	 */
@@ -69,6 +74,8 @@ class Game {
 		if(($x >= 0 || $x <= 4) && ($y >= 0 || $y <= 4)	&& ($p == 1 || $p == 2)) {
 			$moves = array();
 			if($this->whichTurn == $p) {
+				// flush available movements
+				$this->availableMovements = array();
 				// storing available movements
 				$this->horizontalMovements($x, $y);
 				$this->verticalMovements($x, $y);
@@ -85,8 +92,12 @@ class Game {
 		if(!empty($this->availableMovements)) {
 
 			if(in_array(array('x' => $destX, 'y' => $destY), $this->availableMovements)) {
+				// move selected pawn
 				$this->board[$destY][$destX] = $this->board[$srcY][$srcX];
 				$this->board[$srcY][$srcX] = null;
+
+				// store movement to previous action
+				$this->setPreviousMovement($srcX, $srcY, $destX, $destY);
 
 				// clean up allowed moves
 				$this->availableMovements = array();
@@ -95,17 +106,61 @@ class Game {
 				$this->scanPawns();
 
 				// switch turn
-				if($this->whichTurn == 1) {
-					$this->whichTurn = 2;
-				} elseif($this->whichTurn == 2) {
-					$this->whichTurn = 1;
-				}
+				$this->switchTurn();
+
 				return true;
 			} else {
 				Messages::add("Go get some fair play, cheater !");
 			}
 		}
 		return false;
+	}
+
+	public function cancelMove() {
+		if(!empty($this->prevMovement)) {
+			// move pawn
+			$this->board[$this->prevMovement['srcY']][$this->prevMovement['srcX']] = $this->board[$this->prevMovement['destY']][$this->prevMovement['destX']];
+			$this->board[$this->prevMovement['destY']][$this->prevMovement['destX']] = null;
+
+			// flush previous movement
+			$this->prevMovement = array();
+
+			// previous turn
+			$this->switchTurn();
+
+			return true;
+		}
+		return false;
+	}
+
+	public function setPreviousMovement($srcX, $srcY, $destX, $destY) {
+		$this->prevMovement = array(
+			'srcX' => $srcX,
+			'srcY' => $srcY,
+			'destX' => $destX,
+			'destY' => $destY
+		);
+	}
+
+	/*
+	 * It returns true when we have a previous movement
+	 * to handle.
+	 */
+	public function previousMovement() {
+		if(!empty($this->prevMovement)) {
+			return true;
+		}
+		return false;
+	}
+
+	public function switchTurn() {
+		if($this->whichTurn == 1) {
+			$this->whichTurn = 2;
+			return 2;
+		} elseif($this->whichTurn == 2) {
+			$this->whichTurn = 1;
+			return 1;
+		}
 	}
 
 	public function horizontalMovements($x, $y) {

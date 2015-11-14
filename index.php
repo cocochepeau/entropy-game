@@ -27,11 +27,20 @@
 				</div>
 				<div class="mgr">
 					<?php Messages::render(); ?>
-					<h3 class="pn pn-one"><?= htmlentities($game->getPlayerOne()->getName(), HE_FLAGS, CHARSET); ?></h3>
-					<h3 class="pn pn-two"><?= htmlentities($game->getPlayerTwo()->getName(), HE_FLAGS, CHARSET); ?></h3>
-					<form action="<?= ROOT; ?>/index.php" method="post">
-						<button class="btn btn-block" type="submit" name="restart">Relancer</button>
-					</form>
+					<div class="mgr-left">
+						<h3 class="pn pn-one"><?= htmlentities($game->getPlayerOne()->getName(), HE_FLAGS, CHARSET); ?></h3>
+						<h3 class="pn pn-two"><?= htmlentities($game->getPlayerTwo()->getName(), HE_FLAGS, CHARSET); ?></h3>
+					</div>
+					<div class="mgr-right">
+						<form action="<?= ROOT; ?>/index.php" method="post">
+							<button class="btn btn-block" type="submit" name="restart">Relancer</button>
+							<?php
+							if($game->previousMovement()) {
+								?><button class="btn btn-block" type="submit" name="previous">Annuler mouvement</button><?php
+							}
+							?>
+						</form>
+					</div>
 				</div>
 				<?php
 			}
