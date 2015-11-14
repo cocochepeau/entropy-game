@@ -7,7 +7,7 @@ define('HE_FLAGS', ENT_QUOTES | ENT_HTML5);
 define('CHARSET', 'UTF-8');
 
 // autoloader
-$autloader = SERV_ROOT . '/libs/autoloader.php';
+$autloader = __DIR__ . '/../libs/autoloader.php';
 require_once($autloader);
 
 // init session

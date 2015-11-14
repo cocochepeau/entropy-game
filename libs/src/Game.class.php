@@ -472,13 +472,13 @@ class Game {
 						$render .= '<td><div class="box"><a href="#" class="pawn '.$col->getColor().' blocked"></a>';
 					} else { // just a simple pawn that needs to be displayed
 						$playable = ($col->getPlayer()->getNumber() == $this->whichTurn) ? 'playable' : '';
-						$href = (!$this->endGame()) ? ROOT.'/index.php?select&p='.$col->getPlayer()->getNumber().'&x='.$x.'&y='.$y : '#';
+						$href = (!$this->endGame()) ? 'index.php?select&p='.$col->getPlayer()->getNumber().'&x='.$x.'&y='.$y : '#';
 						$render .= '<td><div class="box"><a href="'.$href.'" class="pawn '.$col->getColor().' '.$playable.'"></a>';
 					}
 				} else {
 					// movements
 					if(in_array(array('x' => $x, 'y' => $y), $this->availableMovements)) {
-						$href = (!$this->endGame()) ? ROOT.'/index.php?move&srcX='.$this->srcX.'&srcY='.$this->srcY.'&destX='.$x.'&destY='.$y : '#';
+						$href = (!$this->endGame()) ? 'index.php?move&srcX='.$this->srcX.'&srcY='.$this->srcY.'&destX='.$x.'&destY='.$y : '#';
 						$render .= '<td><div class="box"><a href="'.$href.'" class="pawn movable"></a>';
 					} else {
 						// nothing to display...
