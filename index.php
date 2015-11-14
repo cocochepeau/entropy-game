@@ -33,7 +33,7 @@
 					</div>
 					<div class="mgr-right">
 						<form action="index.php" method="post">
-							<button class="btn btn-block" type="submit" name="restart">Relancer</button>
+							<button class="btn btn-block" type="submit" name="restart">Relancer partie</button>
 							<?php
 							if($game->previousMovement()) {
 								?><button class="btn btn-block" type="submit" name="previous">Annuler mouvement</button><?php
