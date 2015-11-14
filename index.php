@@ -54,8 +54,8 @@
 							<input type="text" name="playerOne" id="playerOne" required>
 						</div>
 						<div class="form-control">
-						<label for="playerTwo">Joueur 2</label>
-						<input type="text" name="playerTwo" id="playerTwo" required>
+							<label for="playerTwo">Joueur 2</label>
+							<input type="text" name="playerTwo" id="playerTwo" required>
 						</div>
 						<div>
 							<button class="btn btn-block" type="submit" name="start">C'est parti !</button>

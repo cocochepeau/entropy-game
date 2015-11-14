@@ -31,6 +31,12 @@ body {
 	line-height: 14px;
 }
 
+.wrapper {
+	margin: 0 auto;
+	padding: 0 10px;
+	width: 700px;
+}
+
 .brand {
 	line-height: 26px;
 	margin-bottom: 20px;
@@ -62,6 +68,12 @@ textarea:focus {
 	margin-bottom: 20px;
 }
 
+.form-control input {
+	margin-top: 10px;
+	display: block;
+	width: 100%;
+}
+
 .btn {
 	font-family: 'silkscreenbold', Verdana, Arial, sans-serif;
 	color: #ffffff;
@@ -82,13 +94,10 @@ textarea:focus {
 	width: 100%;
 }
 
-.wrapper {
-	margin: 0 auto;
-	width: 700px;
-}
-
 /* board */
 .board {
+	display: table;
+	margin: 0 auto;
 	margin-bottom: 20px;
 }
 
