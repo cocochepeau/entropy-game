@@ -558,7 +558,8 @@ class Game {
 		$cptX = $x-1;
 		$cptY = $y+1;
 		if(($cptX >= 0) && ($cptY <= 4)) {
-			while(($cptX >= 0 && $cptY <= 4 && $this->board[$cptY][$cptX] == null) || !$this->isBlocked($cptX, $cptY)) {
+			while(($cptX >= 0 && $cptY <= 4) || $this->board[$cptY][$cptX] == null || !$this->isBlocked($cptX, $cptY)) {
+				echo $cptX;
 				$cptX--;
 				$cptY++;
 			}
@@ -576,7 +577,8 @@ class Game {
 		$cptX = $x+1;
 		$cptY = $y-1;
 		if(($cptX <= 4) && ($cptY >= 0)) {
-			while(($cptX <= 4 && $cptY >= 0 &&  $this->board[$cptY][$cptX] == null) || !$this->isBlocked($cptX, $cptY)) {
+			while(($cptX <= 4 && $cptY >= 0) || $this->board[$cptY][$cptX] == null || !$this->isBlocked($cptX, $cptY)) {
+				echo $cptX;
 				$cptX++;
 				$cptY--;
 			}
@@ -594,7 +596,8 @@ class Game {
 		$cptX = $x+1;
 		$cptY = $y+1;
 		if(($cptX <= 4) && ($cptY <= 4)) {
-			while(($cptX <= 4 && $cptY <= 4 && $this->board[$cptY][$cptX] == null) || !$this->isBlocked($cptX, $cptY)) {
+			while(($cptX <= 4 && $cptY <= 4) || $this->board[$cptY][$cptX] == null || !$this->isBlocked($cptX, $cptY)) {
+				echo $cptX;
 				$cptX++;
 				$cptY++;
 			}
@@ -612,7 +615,8 @@ class Game {
 		$cptX = $x-1;
 		$cptY = $y-1;
 		if(($cptX >= 0) && ($cptY >= 0)) {
-			while(($cptX >= 0 && $cptY >= 0 && $this->board[$cptY][$cptX] == null  ||) !$this->isBlocked($cptX, $cptY)) {
+			while(($cptX >= 0 && $cptY >= 0) || $this->board[$cptY][$cptX] == null  || !$this->isBlocked($cptX, $cptY)) {
+				echo $cptX;
 				$cptX--;
 				$cptY--;
 			}
