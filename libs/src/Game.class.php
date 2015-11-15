@@ -163,6 +163,9 @@ class Game {
 		}
 	}
 
+	/*
+	* return an array of available horizontal movement from $x and $y
+	*/
 	public function horizontalMovements($x, $y) {
 		$tmpX = $x;
 
@@ -227,6 +230,10 @@ class Game {
 		}
 	}
 
+
+	/*
+	* return an array of available vertical movement from $x and $y
+	*/
 	public function verticalMovements($x, $y) {
 		$tmpY = $y;
 
@@ -290,7 +297,11 @@ class Game {
 			}
 		}
 	}
-
+	
+	
+	/*
+	* return an array of available diagonal movement from $x and $y
+	*/
 	public function diagonalMovements($x, $y) {
 		// checking bottom/left side
 		$cptX = $x-1;
@@ -357,6 +368,10 @@ class Game {
 		}
 	}
 
+
+	/*
+	* check if the pawn at (x,y) is blocked, return a boolean
+	*/
 	public function isBlocked($x, $y) {
 		if($this->board[$y][$x] && $this->board[$y][$x] != null) {
 			$player = $this->board[$y][$x]->getPlayer();
@@ -382,6 +397,10 @@ class Game {
 		return false;
 	}
 
+
+		/*
+	* check if the pawn at (x,y) is alone, return a boolean
+	*/
 	public function isAlone($x, $y) {
 		if($this->board[$y][$x] && $this->board[$y][$x] != null) {
 			return (
@@ -406,6 +425,9 @@ class Game {
 		return false;
 	}
 
+	/*
+	* verify if the pawn at (x,y) belongs to $player, return a boolean
+	*/
 	public function isPlayerPawn($x, $y, $player) {
 		if($this->board[$y][$x] && $this->board[$y][$x] != null) {
 			if($this->board[$y][$x]->getPlayer() == $player) {
@@ -415,6 +437,10 @@ class Game {
 		return false;
 	}
 
+
+	/*
+	* scan all pawns on the board, it verify if pawns are alone or blocked
+	*/
 	public function scanPawns() {
 		$this->blockedPawns = array(); // flush blocked pawns
 		$this->alonePawns = array(); // flush isolated pawns
@@ -432,6 +458,9 @@ class Game {
 		}
 	}
 
+	/*
+	* if the game is ended, return the winner, ifnot return null.
+	*/
 	public function endGame() {
 		$count = count($this->blockedPawns);
 		if($count >= 5) {
