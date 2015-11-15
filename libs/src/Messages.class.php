@@ -10,7 +10,7 @@ class Messages {
 	public static function render() {
 		$render = '';
 		foreach(self::$messages as $message) {
-			$render .= '<div>'.$message.'</div>';
+			$render .= '<p>'.$message.'</p>';
 		}
 		echo $render;
 	}

@@ -23,13 +23,13 @@ class App {
 		// if game is being played right now...
 		if($this->game != null) { // instanceOf Game
 
-			// looking for isolated & blocked pawns
-			$this->game->scanPawns();
-
 			// want to cancel your move ?
 			if(isset($_POST['previous'])) {
 				$this->game->cancelMove();
 			}
+
+			// looking for isolated & blocked pawns
+			$this->game->scanPawns();
 
 			// do you want to select a pawn in order to move it ?
 			if(isset($_GET['select'])) {
