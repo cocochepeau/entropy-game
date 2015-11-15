@@ -39,6 +39,11 @@ class Game {
 	 */
 	private $alonePawns = array();
 
+	/*
+	 * In order to reconnect with alone pawns
+	 */
+	private $rescuePawns = array();
+
 	public function __construct($playerNameOne, $playerNameTwo) {
 		// init players
 		$this->playerOne = new Player(1, $playerNameOne);
@@ -164,8 +169,8 @@ class Game {
 	}
 
 	/*
-	* return an array of available horizontal movement from $x and $y
-	*/
+	 * return an array of available horizontal movement from $x and $y
+	 */
 	public function horizontalMovements($x, $y) {
 		$tmpX = $x;
 
@@ -230,10 +235,9 @@ class Game {
 		}
 	}
 
-
 	/*
-	* return an array of available vertical movement from $x and $y
-	*/
+	 * return an array of available vertical movement from $x and $y
+	 */
 	public function verticalMovements($x, $y) {
 		$tmpY = $y;
 
@@ -297,11 +301,10 @@ class Game {
 			}
 		}
 	}
-	
-	
+
 	/*
-	* return an array of available diagonal movement from $x and $y
-	*/
+	 * return an array of available diagonal movement from $x and $y
+	 */
 	public function diagonalMovements($x, $y) {
 		// checking bottom/left side
 		$cptX = $x-1;
@@ -373,19 +376,14 @@ class Game {
 	 * @return array src of pawn and destination
 	 */
 	public function allowedMovedToAlone($alonePawns) {
-		$aloneX = 0;
-		$aloneY = 0;
-		$alonePawnsSize = count($alonePawns);
 		$pawnsCanMove = array();
-		for($i = 0; $i <= $alonePawnsSize-1 ; $i++) {
-			$aloneX = $alonePawns[$i]['x'];
-			$aloneY = $alonePawns[$i]['y'];
+		foreach($alonePawns as $pawn) {
 			// horizontal movement
-			$pawnsCanMove['horizontal'] = $this->allowedHorizontalMovementAlone($aloneX, $aloneY);
+			$pawnsCanMove['horizontal'] = $this->allowedHorizontalMovementAlone($pawn['x'], $pawn['y']);
 			//vertical movement
-			$pawnsCanMove['vertical'] = $this->allowedVerticalMovementAlone($aloneX, $aloneY);
+			$pawnsCanMove['vertical'] = $this->allowedVerticalMovementAlone($pawn['x'], $pawn['y']);
 			//diagonal movement
-			$pawnsCanMove['diagonal'] = $this->allowedDiagonalMovementAlone($saloneX, $aloneY);
+			$pawnsCanMove['diagonal'] = $this->allowedDiagonalMovementAlone($pawn['x'], $pawn['y']);
 		}
 		return $pawnsCanMove;
 	}
@@ -399,7 +397,7 @@ class Game {
 			while($x <= 4) {
 				$target = $this->board[$y][$x];
 				if($target != null) {
-					if($this->isBlocked($y, $x)){
+					if($this->isBlocked($x, $y)){
 						break;
 					} else {
 						$x++;
@@ -417,7 +415,7 @@ class Game {
 			while($x >= 0) {
 				$target = $this->board[$y][$x];
 				if($target != null) {
-					if($this->isBlocked($y, $x)){
+					if($this->isBlocked($x, $y)) {
 							break;
 						} else {
 							$x--;
@@ -427,7 +425,7 @@ class Game {
 				}
 			}
 			if($x+1 != $tmpX) {
-				$allowed = array('xSrc' => $x+1, 'ySrc' => $y, 'xDest' => $tmpX - 1, 'yDest' => $y);
+				$allowed = array('xSrc' => $x+1, 'ySrc' => $y, 'xDest' => $tmpX-1, 'yDest' => $y);
 			}
 		} elseif($x > 0 || $x < 4) {
 			// 0 < x < 4
@@ -438,7 +436,7 @@ class Game {
 			while($right <= 4) {
 				$target = $this->board[$y][$right];
 				if($target != null) {
-					if($this->isBlocked($y, $right)) {
+					if($this->isBlocked($right, $y)) {
 						break;
 					} else {
 						$right++;
@@ -455,7 +453,7 @@ class Game {
 			while($left >= 0) {
 				$target = $this->board[$y][$left];
 				if($target != null) {
-					if($this->isBlocked($y, $left)) {
+					if($this->isBlocked($left, $y)) {
 						break;
 					} else {
 						$left--;
@@ -464,7 +462,7 @@ class Game {
 					$left--;
 				}
 			}
-			if($left+1 != $tmpX){
+			if($left+1 != $tmpX) {
 				$allowed = array('xSrc' => $left+1, 'ySrc' => $y, 'xDest' => $tmpX-1,'yDest' => $y);
 			}
 		}
@@ -481,7 +479,7 @@ class Game {
 			while($y <= 4) {
 				$target = $this->board[$y][$x];
 				if($target != null) {
-					if($this->isBlocked($y, $x)) {
+					if($this->isBlocked($x, $y)) {
 						break;
 					} else {
 						$y++;
@@ -499,7 +497,7 @@ class Game {
 			while($y >= 0) {
 				$target = $this->board[$y][$x];
 				if($target != null) {
-					if($this->isBlocked($y, $x)) {
+					if($this->isBlocked($x, $y)) {
 						break;
 					} else {
 						$y--;
@@ -509,7 +507,7 @@ class Game {
 				}
 			}
 			if($tmpY != $y+1){
-				$allowed = array('xSrc' => $x, 'ySrc' => $y+1, 'xDest' => $x, 'yDest' => $tmpY - 1);
+				$allowed = array('xSrc' => $x, 'ySrc' => $y+1, 'xDest' => $x, 'yDest' => $tmpY-1);
 			}
 		} elseif($y > 0 || $y < 4) {
 			// 0 < y < 4
@@ -520,7 +518,7 @@ class Game {
 			while($top <= 4) {
 				$target = $this->board[$top][$x];
 				if($target != null) {
-					if($this->isBlocked($top, $x)) {
+					if($this->isBlocked($x, $top)) {
 						break;
 					} else {
 						$top++;
@@ -530,14 +528,14 @@ class Game {
 				}
 			}
 			if($tmpY != $top -1) {
-				$allowed = array('xSrc' => $x, 'ySrc' => $top-1, 'xDest' => $x, 'yDest' => $tmpY + 1);
+				$allowed = array('xSrc' => $x, 'ySrc' => $top-1, 'xDest' => $x, 'yDest' => $tmpY+1);
 			}
 
 			// checking on the bottom side
 			while($bottom >= 0) {
 				$target = $this->board[$bottom][$x];
 				if($target != null) {
-					if($this->isBlocked($bottom, $x)) {
+					if($this->isBlocked($x, $bottom)) {
 						break;
 					} else {
 						$bottom--;
@@ -547,7 +545,7 @@ class Game {
 				}
 			}
 			if($tmpY != $bottom+1) {
-				$allowed = array('xSrc' => $x, 'ySrc' => $bottom+1, 'xDest' => $x, 'yDest' => $tmpY - 1);
+				$allowed = array('xSrc' => $x, 'ySrc' => $bottom+1, 'xDest' => $x, 'yDest' => $tmpY-1);
 			}
 		}
 		return $allowed;
@@ -559,8 +557,8 @@ class Game {
 		// checking bottom/left side
 		$cptX = $x-1;
 		$cptY = $y+1;
-		if(($cptX >= 0) && ($cptY <= 4)){ // is to avoid an nuller pointer error on the board's array.
-			while(((($cptX >= 0) && ($cptY <= 4)) && $this->board[$cptY][$cptX] == null) || (!$this->isBlocked($cptX, $cptY))) {
+		if(($cptX >= 0) && ($cptY <= 4)) {
+			while(($cptX >= 0 && $cptY <= 4 && $this->board[$cptY][$cptX] == null) || !$this->isBlocked($cptX, $cptY)) {
 				$cptX--;
 				$cptY++;
 			}
@@ -578,7 +576,7 @@ class Game {
 		$cptX = $x+1;
 		$cptY = $y-1;
 		if(($cptX <= 4) && ($cptY >= 0)) {
-			while(((($cptX <= 4) && ($cptY >= 0)) &&  $this->board[$cptY][$cptX] == null) || (!$this->isBlocked($cptX, $cptY))) {
+			while($cptX <= 4 && $cptY >= 0 &&  $this->board[$cptY][$cptX] == null || !$this->isBlocked($cptX, $cptY)) {
 				$cptX++;
 				$cptY--;
 			}
@@ -596,7 +594,7 @@ class Game {
 		$cptX = $x+1;
 		$cptY = $y+1;
 		if(($cptX <= 4) && ($cptY <= 4)) {
-			while(((($cptX <= 4) && ($cptY <= 4)) && $this->board[$cptY][$cptX] == null) || (!$this->isBlocked($cptX, $cptY))) {
+			while($cptX <= 4 && $cptY <= 4 && $this->board[$cptY][$cptX] == null || !$this->isBlocked($cptX, $cptY)) {
 				$cptX++;
 				$cptY++;
 			}
@@ -614,7 +612,7 @@ class Game {
 		$cptX = $x-1;
 		$cptY = $y-1;
 		if(($cptX >= 0) && ($cptY >= 0)) {
-			while(((($cptX >= 0) && ($cptY >= 0)) && $this->board[$cptY][$cptX] == null)  || (!$this->isBlocked($cptX, $cptY))) {
+			while($cptX >= 0 && $cptY >= 0 && $this->board[$cptY][$cptX] == null  || !$this->isBlocked($cptX, $cptY)) {
 				$cptX--;
 				$cptY--;
 			}
@@ -631,10 +629,9 @@ class Game {
 		return $allowedMoves;
 	}
 
-
 	/*
-	* check if the pawn at (x,y) is blocked, return a boolean
-	*/
+	 * check if the pawn at (x,y) is blocked, return a boolean
+	 */
 	public function isBlocked($x, $y) {
 		if($this->board[$y][$x] && $this->board[$y][$x] != null) {
 			$player = $this->board[$y][$x]->getPlayer();
@@ -660,10 +657,9 @@ class Game {
 		return false;
 	}
 
-
 	/*
-	* check if the pawn at (x,y) is alone, return a boolean
-	*/
+	 * check if the pawn at (x,y) is alone, return a boolean
+	 */
 	public function isAlone($x, $y) {
 		if($this->board[$y][$x] && $this->board[$y][$x] != null) {
 			return (
@@ -689,8 +685,8 @@ class Game {
 	}
 
 	/*
-	* verify if the pawn at (x,y) belongs to $player, return a boolean
-	*/
+	 * verify if the pawn at (x,y) belongs to $player, return a boolean
+	 */
 	public function isPlayerPawn($x, $y, $player) {
 		if($this->board[$y][$x] && $this->board[$y][$x] != null) {
 			if($this->board[$y][$x]->getPlayer() == $player) {
@@ -700,13 +696,13 @@ class Game {
 		return false;
 	}
 
-
 	/*
-	* scan all pawns on the board, it verify if pawns are alone or blocked
-	*/
+	 * scan all pawns on the board, it verify if pawns are alone or blocked
+	 */
 	public function scanPawns() {
 		$this->blockedPawns = array(); // flush blocked pawns
 		$this->alonePawns = array(); // flush isolated pawns
+		$this->rescuePawns = array(); // flush rescue pawns
 
 		for($y = 0; $y <=4; $y++) {
 			for($x = 0; $x <= 4; $x++) {
@@ -719,11 +715,15 @@ class Game {
 				}
 			}
 		}
+
+		// rescue
+		$this->rescuePawns = $this->allowedMovedToAlone($this->alonePawns);
+		var_dump($this->rescuePawns);
 	}
 
 	/*
-	* if the game is ended, return the winner, ifnot return null.
-	*/
+	 * if the game is ended, return the winner, ifnot return null.
+     */
 	public function endGame() {
 		$count = count($this->blockedPawns);
 		if($count >= 5) {
