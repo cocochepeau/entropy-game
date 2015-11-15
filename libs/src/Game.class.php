@@ -578,7 +578,7 @@ class Game {
 		$cptY = $y-1;
 		if(($cptX <= 4) && ($cptY >= 0)) {
 
-			while((($cptX <= 4 && $cptY >= 0) &&  !$this->isBlocked($cptX, $cptY)) {
+			while(($cptX <= 4 && $cptY >= 0) &&  !$this->isBlocked($cptX, $cptY)) {
 				echo $cptX;
 
 				$cptX++;
@@ -599,7 +599,7 @@ class Game {
 		$cptY = $y+1;
 		if(($cptX <= 4) && ($cptY <= 4)) {
 
-			while((($cptX <= 4 && $cptY <= 4) && !$this->isBlocked($cptX, $cptY)) {
+			while(($cptX <= 4 && $cptY <= 4) && !$this->isBlocked($cptX, $cptY)) {
 
 				echo $cptX;
 				$cptX++;
