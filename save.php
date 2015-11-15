@@ -66,7 +66,7 @@
 		}
 		return false;
 	}
-
+	
 	/*
 	 * parameters array which come from scanLoniless()
 	 * @return array src of pawn and destination
@@ -80,11 +80,11 @@
 			$aloneX = $alonePawns[$i]['x'];
 			$aloneY = $alonePawns[$i]['y'];
 			// horizontal movement
-			$pawnsCanMove[] = $this->allowedHorizontalMovementAlone($aloneX, $aloneY);
+			$pawnsCanMove['horizontal'] = $this->allowedHorizontalMovementAlone($aloneX, $aloneY);
 			//vertical movement
-			$pawnsCanMove[] = $this->allowedVerticalMovementAlone($aloneX, $aloneY);
+			$pawnsCanMove['vertical'] = $this->allowedVerticalMovementAlone($aloneX, $aloneY);
 			//diagonal movement
-			$pawnsCanMove[] = $this->allowedDiagonalMovementAlone($saloneX, $aloneY);
+			$pawnsCanMove['diagonal'] = $this->allowedDiagonalMovementAlone($saloneX, $aloneY);
 		}
 		return $pawnsCanMove;
 	}
@@ -97,7 +97,7 @@
 			$x++;
 			while($x <= 4) {
 				$target = $this->board[$y][$x];
-				if($target != null) { // to avoid null pointer exception when we call isBlocked()
+				if($target != null) {
 					if($this->isBlocked($y, $x)){
 						break;
 					} else {
@@ -170,7 +170,6 @@
 		return $allowed;
 	}
 
-	//this method was modified in order to give only one coordinate
 	public function allowedVerticalMovementAlone($x, $y) {
 		$allowed = array();
 
@@ -330,4 +329,3 @@
 
 		return $allowedMoves;
 	}
-

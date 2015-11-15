@@ -9,12 +9,32 @@
 	font-style: normal;
 }
 
+html {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+	-webkit-box-sizing: inherit;
+	-moz-box-sizing: inherit;
+	box-sizing: inherit;
+}
+
 body {
 	height: 100%;
 	font-family: 'silkscreenbold', Verdana, Arial, sans-serif;
 	background-color: #C4D7ED;
 	font-size: 20px;
 	line-height: 14px;
+}
+
+.wrapper {
+	margin: 0 auto;
+	padding: 0 10px;
+	width: 700px;
 }
 
 .brand {
@@ -48,6 +68,12 @@ textarea:focus {
 	margin-bottom: 20px;
 }
 
+.form-control input {
+	margin-top: 10px;
+	display: block;
+	width: 100%;
+}
+
 .btn {
 	font-family: 'silkscreenbold', Verdana, Arial, sans-serif;
 	color: #ffffff;
@@ -68,13 +94,10 @@ textarea:focus {
 	width: 100%;
 }
 
-.wrapper {
-	display: table;
-	margin: 0 auto;
-}
-
 /* board */
 .board {
+	display: table;
+	margin: 0 auto;
 	margin-bottom: 20px;
 }
 
@@ -134,19 +157,21 @@ textarea:focus {
 	border-color: green;
 }
 
-.movable {
-	border-style: dashed !important;
-}
-
 .blocked {
 	border-color: red;
 }
+
+.movable {}
+
+.alone {}
 
 /* mgr */
 .mgr {
 	margin-bottom: 20px;
 	padding: 16px;
 	background-color: #F4F4F4;
+	float: left;
+	width: 100%;
 }
 
 .mgr > h3:first-child {
@@ -163,4 +188,15 @@ textarea:focus {
 
 .pn-two {
 	color: #99C4EC;
+}
+
+.mgr-left {
+	float: left;
+	width: 50%;
+	padding-right: 20px;
+}
+
+.mgr-right {
+	float: right;
+	width: 50%;
 }
