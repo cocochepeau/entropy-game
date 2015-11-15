@@ -25,14 +25,18 @@ class App {
 
 			// looking for isolated & blocked pawns
 			$this->game->scanPawns();
-
+			
 			// do you want to select a pawn in order to move it ?
 			if(isset($_GET['select'])) {
+			/*	if(!empty($this->game->alonePawns)){
+					
+				}else{*/
 				$this->game->availableMovements(
 					$_GET['x'],
 					$_GET['y'],
 					$_GET['p']
 				);
+				}
 			}
 
 			// let's move it move it !
@@ -45,7 +49,7 @@ class App {
 				);
 			}
 		}
-	}
+	
 
 	public function startGame() {
 		if(!Session::get('game')) {

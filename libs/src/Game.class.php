@@ -730,10 +730,13 @@ class Game {
 							$isAlone = true;
 						}
 					}
-					if(!$isBlocked && !$isAlone) {
+					if(!$isBlocked) {
 						$playable = ($col->getPlayer()->getNumber() == $this->whichTurn) ? 'playable' : '';
 						$href = (!$this->endGame()) ? ROOT.'/index.php?select&p='.$col->getPlayer()->getNumber().'&x='.$x.'&y='.$y : '#';
 						$render .= '<td><div class="box"><a href="'.$href.'" class="pawn '.$col->getColor().' '.$playable.'"></a>';
+					}elseif($isAlone){
+						$playable = ($col->getPlayer()->getNumber() == $this->whichTurn) ? 'playable' : '';
+						$render .= '<td><div class="box"><a href="#" class="pawn '.$col->getColor().' '.$playable.'"></a>';
 					}
 				} else {
 					// movements
