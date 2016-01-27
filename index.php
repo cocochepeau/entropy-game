@@ -43,9 +43,7 @@
 					</div>
 				</div>
 				<?php
-			}
-			else
-			{
+			} else {
 				?>
 				<div class="mgr">
 					<form action="index.php" method="post" accept-charset="UTF-8">
